@@ -79,9 +79,9 @@ class SinaSpider(CrawlSpider):
         'http://stock.eastmoney.com/'
     ]
     rules = [
-        Rule(sle(allow=["/news/\w+\.html", ]), callback='parse_list',follow=True),
+        Rule(sle(allow=["news/[a-zA-Z]+(_\d)?.html", ]), callback='parse_list',follow=True),
         
-        Rule(sle(allow=["/news/\d+,20140516\d+\.html", ]), callback='parse_news',follow=False),
+        Rule(sle(allow=["/news/\d+,\d+\d+\.html", ]), callback='parse_news',follow=False),
         # Rule(sle(allow=["/.*$"],deny=[]),follow=True),
         # Rule(sle(allow=("/tag/$", )), follow=True),
     ]

@@ -22,3 +22,10 @@ ITEM_PIPELINES = {
     # 'scrapy_sina.pipelines.JsonWithEncodingPipeline': 300,
     'scrapy_sina.pipelines.MongodbPipeline': 300,
 }
+
+
+
+DOWNLOADER_MIDDLEWARES = {
+    'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': 110,
+    'scrapy_sina.middlewares.ProxyMiddleware': 100,
+}
