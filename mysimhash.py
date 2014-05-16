@@ -83,7 +83,7 @@ class SimhashIndex(object):
         '''
         assert simhash.f == self.f
 
-        ans = set()
+        ans = []
 
         for i, offset in enumerate(self.offsets):
             m = (i == len(self.offsets) - 1 and 2**(self.f - offset) - 1 or 2**(self.offsets[i + 1] - offset) - 1)
@@ -99,9 +99,11 @@ class SimhashIndex(object):
                 sim2 = Simhash(long(sim2, 16), self.f)
 
                 d = simhash.distance(sim2)
-                if d <= self.k:
-                    ans.add(obj_id)
-        return list(ans)
+                ans.append( (d,obj_id) )
+                # if d <= self.k:
+                    # ans.add(obj_id)
+                # return ans[0:5]
+        return ans[0:5]
 
     def add(self, obj_id, simhash):
         '''
