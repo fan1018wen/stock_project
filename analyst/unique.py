@@ -18,13 +18,15 @@ for i in Article.find({},{"_id":1,"sim":1}).limit(10000):
     hash_int = mysimhash.Simhash(int(i['sim']))
     bu.add( obj_id,hash_int)
 
+
+
+
 bu.k=13
 for item in Article.find().limit(10):
     obj_id = str(item['_id'])
     sim = mysimhash.Simhash(int(item['sim']))
-#     print sim,
     articles = bu.get_near_dups(sim)
-    print item['title'],item['_id']
+    print item['title'],item['_id'],item['url']
     for i in articles:
         if i[1]==obj_id:continue
         art = Article.find_one({"_id":bson.objectid.ObjectId(i[1])})
