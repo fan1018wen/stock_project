@@ -17,7 +17,8 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 # import ipdb;ipdb.set_trace()
-from my.items import *
+from scrapy_sina.items import *
+
 
 
 class DoubanBookSpider(CrawlSpider):
@@ -80,7 +81,7 @@ class SinaSpider(CrawlSpider):
     rules = [
         Rule(sle(allow=["/news/\w+\.html", ]), callback='parse_list',follow=True),
         
-        Rule(sle(allow=["/news/\d+,20140515\d+\.html", ]), callback='parse_news',follow=False),
+        Rule(sle(allow=["/news/\d+,20140516\d+\.html", ]), callback='parse_news',follow=False),
         # Rule(sle(allow=["/.*$"],deny=[]),follow=True),
         # Rule(sle(allow=("/tag/$", )), follow=True),
     ]

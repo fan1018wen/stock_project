@@ -6,19 +6,19 @@
 #     http://doc.scrapy.org/en/latest/topics/settings.html
 #
 
-BOT_NAME = 'my'
+BOT_NAME = 'scrapy_sina'
 
-SPIDER_MODULES = ['my.spiders']
-NEWSPIDER_MODULE = 'my.spiders'
+SPIDER_MODULES = ['scrapy_sina.spiders']
+NEWSPIDER_MODULE = 'scrapy_sina.spiders'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'my (+http://www.yourdomain.com)'
+#USER_AGENT = 'scrapy_sina (+http://www.yourdomain.com)'
 LOG_LEVEL = 'CRITICAL'
 
 
 
 
 ITEM_PIPELINES = {
-    # 'my.pipelines.JsonWithEncodingPipeline': 300,
-    'my.pipelines.MongodbPipeline': 300,
+    # 'scrapy_sina.pipelines.JsonWithEncodingPipeline': 300,
+    'scrapy_sina.pipelines.MongodbPipeline': 300,
 }
