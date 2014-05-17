@@ -16,5 +16,16 @@ def pr(t):
 
 
 
-for i in Article.find({"keyword":u"危机"}).sort("datetime",-1).limit(10):
-    print i['title'],i['url']
+# for i in Article.find({"keyword":u"危机"}).sort("datetime",-1).limit(10):
+#     print i['title'],i['url']
+
+
+# import yaha.analyse
+# import snippet
+
+# for i in Article.find():
+#     text = snippet.html2text(i['body'])
+# #     print text
+#     summary=yaha.analyse.summarize2(text)
+#     i['summary']=summary
+#     Article.save(i)
