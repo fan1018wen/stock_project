@@ -1,4 +1,4 @@
-var myAppModule = angular.module('myApp', ['ngSanitize']);
+var myAppModule = angular.module('myApp', ['ngSanitize','ngAnimate']);
 
 myAppModule.controller('articleCtrl', function($scope, $http) {
 	window.articleScope = $scope;
@@ -12,11 +12,12 @@ myAppModule.controller('articleCtrl', function($scope, $http) {
 	});
 
 	$scope.toggle = function(id) {
-
+		
 		for (var i in $scope.articleList) {
 			if ($scope.articleList[i]._id === id) {
 				var article = $scope.articleList[i];
 				if ( typeof article.body != 'undefined' && article.body.length > 10) {
+//					window.location.hash='#'+id;
 					article.body = "";
 					return;
 				}
@@ -32,9 +33,8 @@ myAppModule.controller('articleCtrl', function($scope, $http) {
 		}).success(function(data, status, headers, config) {
 			console.log(data);
 			article.body = data.body;
-
 		}).error(function(data, status, headers, config) {
-			return console.log("获取数据失败,请刷新页面");
+			article.body = "获取数据失败,请刷新页面";
 		});
 	}
 }); 
