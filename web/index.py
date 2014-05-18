@@ -13,6 +13,11 @@ def article():
     return route.article()
 
 
+@app.route('/api/article/<id>')
+def article_content(id):
+    return route.article_content(id)
+
+
 app.jinja_env.variable_start_string='{{ '
 app.jinja_env.variable_end_string=' }}'
 

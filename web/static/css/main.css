@@ -1,0 +1,148 @@
+/*from tuicool*/
+
+.article_title a:hover {
+	color: #1abc9c;
+}
+.article_title a {
+	text-decoration: none;
+	color: #444;
+}
+a:hover {
+	-webkit-transition: .25s;
+	-moz-transition: .25s;
+	-o-transition: .25s;
+	transition: .25s;
+}
+a:hover, a:focus {
+	color: #1abc9c;
+	text-decoration: underline;
+}
+a:hover, a:active {
+	outline: 0;
+}
+a {
+	-webkit-transition: .25s;
+	-moz-transition: .25s;
+	-o-transition: .25s;
+	transition: .25s;
+}
+a {
+	color: #333;
+	text-decoration: none;
+}
+
+::selection {
+	color: white;
+	background: #1abc9c;
+}
+.abs-title {
+	font-size: 20px;
+}
+.article_title {
+	line-height: 1.3em;
+	font-size: 16px;
+	font-weight: 500;
+}
+body {
+	font-family: "Helvetica Neue", Helvetica, Tahoma, Arial, STXihei, "Microsoft YaHei", "微软雅黑", sans-serif;
+	font-size: 1em;
+	line-height: 1.5em;
+	color: #333;
+}
+html {
+	font-size: 14px;
+}
+html {
+	font-size: 100%;
+}
+
+.article_body {
+	padding: 20px 5px 10px;
+	margin-bottom: 10px;
+	overflow-x: hidden;
+	word-wrap: break-word
+}
+
+.article_body img, .article_body object, .article_body embed {
+	vertical-align: middle;
+	border: 0;
+	max-width: 550px;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+	text-align: center;
+	margin: 0 auto
+}
+
+.article_body ol, .article_body ul {
+	padding-left: 0
+}
+
+.article_body embed, .article_body iframe {
+	width: 500px;
+	height: 375px
+}
+
+.article_body ul li {
+	list-style-type: disc
+}
+
+.article_body textarea {
+	width: 100%;
+	overflow-y: visible
+}
+
+.article_body, .article_body table, .article_body tr, .article_body td, .article_body p, .article_body div, .article_body ol, .article_body ul, .article_body ul li, .article_body ol li, .article_body blockquote {
+	font-size: 16px;
+	line-height: 1.8
+}
+.article_body h4, .article_body h5, .article_body h6 {
+	line-height: 18px
+}
+.article_body h4 small {
+	font-size: 16px
+}
+.article_body h5 {
+	font-size: 16px
+}
+.article_body h4 {
+	font-size: 16px
+}
+.article_body h3 {
+	font-size: 18px;
+	line-height: 20px
+}
+.article_body h2 {
+	font-size: 20px;
+	line-height: 22px
+}
+.article_body h1 {
+	font-size: 22px;
+	line-height: 24px
+}
+.article_body a {
+	color: #949494;
+	text-decoration: none;
+	border-bottom: 1px dashed #949494;
+	font-style: italic;
+	font-weight: bold
+}
+
+.abs-title {
+	font-size: 20px;
+	margin-top: 10px;
+}
+.article_title {
+	line-height: 1.3em;
+	font-size: 20px;
+	font-weight: 500;
+	padding: 8px 10px;
+}
+
+.article_cut {
+	line-height: 1.6em;
+	margin-bottom: 10px;
+	color: #888;
+	padding: 0 10px;
+}
