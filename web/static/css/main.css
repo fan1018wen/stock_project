@@ -1,3 +1,12 @@
+/*me*/
+.thumbnail{
+	background: #f8f8ff;
+}
+.article_title > h4{
+	font-size: 28px;
+}
+
+
 /*from tuicool*/
 
 .article_title a:hover {

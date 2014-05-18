@@ -15,7 +15,6 @@ myAppModule.controller('articleCtrl', function($scope, $http) {
 
 		for (var i in $scope.articleList) {
 			if ($scope.articleList[i]._id === id) {
-				debugger;
 				var article = $scope.articleList[i];
 				if ( typeof article.body != 'undefined' && article.body.length > 10) {
 					article.body = "";
