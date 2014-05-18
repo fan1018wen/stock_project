@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{83051cdb-e94c-41b7-83d5-79bb9031020e}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>web\index.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <ItemGroup>
+    <Compile Include="mysimhash.py" />
+    <Compile Include="snippet.py" />
+    <Compile Include="text.py" />
+    <Compile Include="analyst\getTop.py" />
+    <Compile Include="analyst\unique.py" />
+    <Compile Include="web\bottle.py" />
+    <Compile Include="web\index.py" />
+    <Compile Include="web\route.py" />
+    <Content Include="web2\Gruntfile.js" />
+    <Compile Include="crawler\scrapy_sina\items.py" />
+    <Compile Include="crawler\scrapy_sina\main.py" />
+    <Compile Include="crawler\scrapy_sina\middlewares.py" />
+    <Compile Include="crawler\scrapy_sina\pipelines.py" />
+    <Compile Include="crawler\scrapy_sina\settings.py" />
+    <Compile Include="crawler\scrapy_sina\__init__.py" />
+    <Compile Include="crawler\scrapy_sina\spiders\my_spider.py" />
+    <Compile Include="crawler\scrapy_sina\spiders\__init__.py" />
+    <Compile Include="web\bottle-doc-zh-cn-master\bottle.py" />
+    <Compile Include="web\bottle-doc-zh-cn-master\setup.py" />
+    <Content Include="web\static\404.html" />
+    <Content Include="web\static\index.html" />
+    <Content Include="web\static\favicon.ico" />
+    <Compile Include="web\bottle-doc-zh-cn-master\docs\conf.py" />
+    <Compile Include="web\bottle-doc-zh-cn-master\test\servertest.py" />
+    <Compile Include="web\bottle-doc-zh-cn-master\test\testall.py" />
+    <Compile Include="web\bottle-doc-zh-cn-master\test\test_configdict.py" />
+    <Compile Include="web\bottle-doc-zh-cn-master\test\test_contextlocals.py" />
+    <Compile Include="web\bottle-doc-zh-cn-master\test\test_environ.py" />
+    <Compile Include="web\bottle-doc-zh-cn-master\test\test_formsdict.py" />
+    <Compile Include="web\bottle-doc-zh-cn-master\test\test_importhook.py" />
+    <Compile Include="web\bottle-doc-zh-cn-master\test\test_jinja2.py" />
+    <Compile Include="web\bottle-doc-zh-cn-master\test\test_mako.py" />
+    <Compile Include="web\bottle-doc-zh-cn-master\test\test_mdict.py" />
+    <Compile Include="web\bottle-doc-zh-cn-master\test\test_mount.py" />
+    <Compile Include="web\bottle-doc-zh-cn-master\test\test_outputfilter.py" />
+    <Compile Include="web\bottle-doc-zh-cn-master\test\test_plugins.py" />
+    <Compile Include="web\bottle-doc-zh-cn-master\test\test_resources.py" />
+    <Compile Include="web\bottle-doc-zh-cn-master\test\test_router.py" />
+    <Compile Include="web\bottle-doc-zh-cn-master\test\test_securecookies.py" />
+    <Compile Include="web\bottle-doc-zh-cn-master\test\test_sendfile.py" />
+    <Compile Include="web\bottle-doc-zh-cn-master\test\test_server.py" />
+    <Compile Include="web\bottle-doc-zh-cn-master\test\test_stpl.py" />
+    <Compile Include="web\bottle-doc-zh-cn-master\test\test_wsgi.py" />
+    <Compile Include="web\bottle-doc-zh-cn-master\test\tools.py" />
+    <Content Include="web\bottle-doc-zh-cn-master\docs\_static\default.js" />
+    <Content Include="web\bottle-doc-zh-cn-master\docs\_static\link_icon.png" />
+    <Content Include="web\bottle-doc-zh-cn-master\docs\_static\logo_bg.png" />
+    <Content Include="web\bottle-doc-zh-cn-master\docs\_static\logo_full.png" />
+    <Content Include="web\bottle-doc-zh-cn-master\docs\_static\logo_icon.png" />
+    <Content Include="web\bottle-doc-zh-cn-master\docs\_static\logo_nav.png" />
+    <Content Include="web\bottle-doc-zh-cn-master\docs\_static\logo_reddit.png" />
+    <Content Include="web\bottle-doc-zh-cn-master\docs\_static\myface.png" />
+    <Content Include="web\bottle-doc-zh-cn-master\docs\_static\myface_small.png" />
+    <Content Include="web\bottle-doc-zh-cn-master\docs\_static\paypal.png" />
+    <Content Include="web\bottle-doc-zh-cn-master\docs\_static\favicon.ico" />
+    <Content Include="web\bottle-doc-zh-cn-master\docs\_templates\donation.html" />
+    <Content Include="web\bottle-doc-zh-cn-master\docs\_templates\layout.html" />
+    <Content Include="web\bottle-doc-zh-cn-master\docs\_templates\page.html" />
+    <Content Include="web\bottle-doc-zh-cn-master\docs\_templates\release-warning.html" />
+    <Content Include="web\bottle-doc-zh-cn-master\docs\_templates\sidebar-intro.html" />
+    <Compile Include="web\bottle-doc-zh-cn-master\plugins\sqlite\bottle_sqlite.py" />
+    <Compile Include="web\bottle-doc-zh-cn-master\plugins\sqlite\setup.py" />
+    <Compile Include="web\bottle-doc-zh-cn-master\plugins\sqlite\test.py" />
+    <Compile Include="web\bottle-doc-zh-cn-master\plugins\werkzeug\bottle_werkzeug.py" />
+    <Compile Include="web\bottle-doc-zh-cn-master\plugins\werkzeug\setup.py" />
+    <Compile Include="web\bottle-doc-zh-cn-master\plugins\werkzeug\test.py" />
+    <Content Include="web\static\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="web\static\scripts\bootstrap.js" />
+    <Content Include="web\static\scripts\bootstrap.min.js" />
+    <Content Include="web\static\scripts\jquery.js" />
+    <Content Include="web\static\scripts\jquery.min.js" />
+    <Content Include="web\static\scripts\main.js" />
+    <Content Include="web\static\styles\bootstrap-theme.css" />
+    <Content Include="web\static\styles\bootstrap-theme.min.css" />
+    <Content Include="web\static\styles\bootstrap.css" />
+    <Content Include="web\static\styles\bootstrap.min.css" />
+    <Content Include="web\static\styles\main.css" />
+    <Content Include="web2\app\robots.txt" />
+    <Content Include="web2\app\404.html" />
+    <Content Include="web2\app\index.html" />
+    <Content Include="web2\app\favicon.ico" />
+    <Content Include="web2\app\scripts\main.js" />
+    <Content Include="web2\app\styles\main.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="analyst" />
+    <Folder Include="crawler\" />
+    <Folder Include="crawler\scrapy_sina" />
+    <Folder Include="crawler\scrapy_sina\spiders" />
+    <Folder Include="web" />
+    <Folder Include="web\bottle-doc-zh-cn-master" />
+    <Folder Include="web\bottle-doc-zh-cn-master\docs" />
+    <Folder Include="web\bottle-doc-zh-cn-master\docs\_static" />
+    <Folder Include="web\bottle-doc-zh-cn-master\docs\_templates" />
+    <Folder Include="web\bottle-doc-zh-cn-master\plugins\" />
+    <Folder Include="web\bottle-doc-zh-cn-master\plugins\sqlite" />
+    <Folder Include="web\bottle-doc-zh-cn-master\plugins\werkzeug" />
+    <Folder Include="web\bottle-doc-zh-cn-master\test" />
+    <Folder Include="web\static" />
+    <Folder Include="web\static\fonts" />
+    <Folder Include="web\static\scripts" />
+    <Folder Include="web\static\styles" />
+    <Folder Include="web2" />
+    <Folder Include="web2\app" />
+    <Folder Include="web2\app\scripts" />
+    <Folder Include="web2\app\styles" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
+</Project>
