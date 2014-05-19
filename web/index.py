@@ -5,12 +5,12 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    1+1
     return render_template('index.html')
 
 @app.route('/api/article')
 def article():
     return route.article()
+
 
 
 @app.route('/api/article/<id>')

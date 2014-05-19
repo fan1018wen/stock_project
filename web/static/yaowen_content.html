@@ -1,0 +1,36 @@
+<div id="myTabContent" class="tab-content" ng-controller='articleCtrl'>
+	<div id="tab1" class="tab-pane fade active in">
+
+		<div class="article" ng-repeat='article in articleList' >
+			<div class="thumbnail">
+				<div class="abs-title article_title">
+					<h4>
+					<a href="" target="_blank">
+						{{article.title}}
+					</a></h4>
+				</div>
+				<div class="digest article_cut" ng-click="toggle($index)" ng-show='!article.body'>
+					<p>{{article.summary}}</p>
+				</div>
+				<div class="article_body" ng-bind-html="article.body" ng-show='article.body' >
+
+				</div>
+				<div class="bottom">
+					<a ng-click="toggle($index)">点击折叠</a>
+					<em>来源:</em>
+					<a ng-href="{{article.url}}">无</a>
+					<em>|分类:</em>
+					<a href="#">无</a>
+					<em>|阅读: 6</em>
+					<em>|发布于:{{article.datetime}} |</em>
+					<em>关键字:</em>
+					<code ng-repeat='word in article.keyword'>
+						{{word}}
+					</code>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" charset="utf-8"></script>

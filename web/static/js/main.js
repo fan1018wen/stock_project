@@ -1,4 +1,4 @@
-var myAppModule = angular.module('myApp', ['ngSanitize', 'ngAnimate']);
+var myAppModule = angular.module('myApp', ['ngSanitize', 'ngAnimate','ngRoute']);
 
 myAppModule.controller('articleCtrl', function($scope, $http) {
 	window.articleScope = $scope;
@@ -28,3 +28,11 @@ myAppModule.controller('articleCtrl', function($scope, $http) {
 		});
 	}
 });
+
+
+myAppModule.config(function($routeProvider){
+	$routeProvider.
+		when('/',{controller:"articleCtrl",templateUrl:'/static/yaowen_content.html'});
+	
+})
+

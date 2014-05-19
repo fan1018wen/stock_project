@@ -14,6 +14,8 @@
     <script src="/static/js/angular.js" type="text/javascript" charset="utf-8"></script>
     <script src="/static/js/angular-sanitize.js" type="text/javascript" charset="utf-8"></script>
    <script src="/static/js/angular-animate.js" type="text/javascript" charset="utf-8"></script>
+   <script src="/static/js/angular-resource.js" type="text/javascript" charset="utf-8"></script>
+   <script src="/static/js/angular-route.js" type="text/javascript" charset="utf-8"></script>
    <script src="/static/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
     <script src="/static/js/main.js" type="text/javascript" charset="utf-8"></script>
   </head>
@@ -49,7 +51,7 @@
             <li><a href="#tab2" data-toggle="tab">行业要闻</a></li>
             <li><a href="#tab3" data-toggle="tab">股票资讯</a></li>
           </ul>-->
-          {% include 'yaowen_content.html' %}
+          <ng-view></ng-view>
         </div>
       </div>
     </div>
