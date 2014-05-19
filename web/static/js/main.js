@@ -1,10 +1,12 @@
-var myAppModule = angular.module('myApp', ['ngSanitize', 'ngAnimate','ngRoute']);
+var myAppModule = angular.module('myApp', ['ngSanitize', 'ngAnimate', 'ngRoute']);
 
-myAppModule.controller('articleCtrl', function($scope, $http) {
+myAppModule.controller('articleListCtrl', function($scope, $http) {
 	window.articleScope = $scope;
+	debugger;
 	$http({
 		method : "GET",
-		url : "api/article"
+		url : "api/article",
+		cache:true
 	}).success(function(data, status, headers, config) {
 		$scope.articleList = data;
 	}).error(function(data, status, headers, config) {
@@ -27,22 +29,25 @@ myAppModule.controller('articleCtrl', function($scope, $http) {
 			article.body = "获取数据失败,请刷新页面";
 		});
 	}
-});
+}); 
 
+myAppModule.config(function($routeProvider, $locationProvider) {
+	$routeProvider.when('/yaowen', {
+//		controller : "articleListCtrl",
+		templateUrl : '/static/yaowen.html'
+	}).when('/', {
+		redirectTo : '/static/yaowen.html'
+	}).when('/dashi', {
+		templateUrl : '/static/dashi.html'
+	}).when('/gegu', {
+		templateUrl : '/static/gegu.html'
+	}).when('/404', {
+		templateUrl : '/static/404.html'
+	}).otherwise({
+		redirectTo : '/404'
+	});
 
-myAppModule.config(function($routeProvider,$locationProvider){
-	$routeProvider.
-		when('/',{
-			controller:"articleCtrl",
-			templateUrl:'/static/yaowen_content.html'
-		}).
-		when('/404',{
-			templateUrl:'/static/404.html'
-		}).otherwise({
-			redirectTo:'/404'
-		});
-		
-		$locationProvider.html5Mode(true);
-	
+	$locationProvider.html5Mode(true);
+
 })
 
