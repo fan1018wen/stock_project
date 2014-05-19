@@ -13,7 +13,7 @@
 					<div class="thumbnail">
 						<div class="abs-title article_title" >
 							<h4>
-							<a ng-href="/yaowen/{{article._id}}" >
+							<a ng-href="{{article.url}}" target="_blank" ng-class="{article_cut:article.readed}">
 								{{article.title}}
 							</a></h4>
 						</div>
@@ -48,9 +48,7 @@
 
 				</div>
 			</div>
-			<div class="debug">
-				
-			</div>
+			<!--<div class="debug"></div>-->
 		</div>
 	</div>
 </div>

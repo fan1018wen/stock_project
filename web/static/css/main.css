@@ -24,7 +24,7 @@
 }
 .article_title a {
 	text-decoration: none;
-	color: #444;
+	/*color: #444;*/
 }
 a:hover {
 	-webkit-transition: .25s;
@@ -34,7 +34,7 @@ a:hover {
 }
 a:hover, a:focus {
 	color: #1abc9c;
-	text-decoration: underline;
+	/*text-decoration: underline;*/
 }
 a:hover, a:active {
 	outline: 0;

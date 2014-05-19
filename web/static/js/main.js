@@ -13,9 +13,10 @@ myAppModule.controller('articleListCtrl', function($scope, $http) {
 	});
 
 	$scope.toggle = function(index,event) {
-		debugger;
+//		debugger;
 		if(typeof event !='undefined')	event.target.parentElement.parentElement.childNodes[1].scrollIntoViewIfNeeded();
 		var article = $scope.articleList[index];
+		article.readed=true;
 		if ( typeof article.body != 'undefined' && article.body.length > 10) {
 			article.body = "";
 			return;
@@ -33,14 +34,11 @@ myAppModule.controller('articleListCtrl', function($scope, $http) {
 }); 
 
 myAppModule.config(function($routeProvider, $locationProvider) {
-	var yaowen = {
+	
+	$routeProvider.when('/yaowen', {
 		controller : "articleListCtrl",
 		templateUrl : '/static/yaowen.html'
-	};
-	
-	$routeProvider.when('/yaowen', yaowen).
-	when('/yaowen/:id', yaowen).
-	when('/', {
+	}).when('/', {
 		redirectTo : '/static/yaowen.html'
 	}).when('/dashi', {
 		templateUrl : '/static/dashi.html'
