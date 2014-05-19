@@ -48,6 +48,8 @@ myAppModule.config(function($routeProvider, $locationProvider) {
 		redirectTo : '/static/yaowen.html'
 	}).when('/dashi', {
 		templateUrl : '/static/dashi.html'
+	}).when('/zhuti', {
+		templateUrl : '/static/zhuti.html'
 	}).when('/gegu', {
 		templateUrl : '/static/gegu.html'
 	}).when('/404', {
