@@ -30,9 +30,19 @@ myAppModule.controller('articleCtrl', function($scope, $http) {
 });
 
 
-myAppModule.config(function($routeProvider){
+myAppModule.config(function($routeProvider,$locationProvider){
 	$routeProvider.
-		when('/',{controller:"articleCtrl",templateUrl:'/static/yaowen_content.html'});
+		when('/',{
+			controller:"articleCtrl",
+			templateUrl:'/static/yaowen_content.html'
+		}).
+		when('/404',{
+			templateUrl:'/static/404.html'
+		}).otherwise({
+			redirectTo:'/404'
+		});
+		
+		$locationProvider.html5Mode(true);
 	
 })
 

@@ -1,3 +1,4 @@
+#encoding=utf8
 from pymongo import Connection
 import json
 from bson import ObjectId

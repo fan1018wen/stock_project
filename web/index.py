@@ -1,21 +1,27 @@
+#encoding=utf8
 from flask import *
+import flask
 import route
 
 app = Flask(__name__)
 
-@app.route('/')
-def hello_world():
-    return render_template('index.html')
+
 
 @app.route('/api/article')
 def article():
     return route.article()
 
-
-
 @app.route('/api/article/<id>')
 def article_content(id):
     return route.article_content(id)
+
+
+# anything route return  index 
+@app.route('/')
+@app.route('/<id1>')
+@app.route('/<id1>/<id2>')
+def hello_world(id1="",id2=""):
+    return send_file('static/index.html')
 
 
 app.jinja_env.variable_start_string='{{ '
