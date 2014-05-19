@@ -1,11 +1,21 @@
 /*me*/
-.thumbnail{
+.thumbnail {
 	background: #f8f8ff;
 }
-.article_title > h4{
+.article_title > h4 {
 	font-size: 28px;
 }
-
+.debug {
+	position: fixed;
+	right: 0px;
+	width: 530px;
+	background: #F7B2B2;
+	height: 290px;
+	bottom: 0px;
+	opacity: 0.8;
+	overflow-x: auto;
+	overflow-y: scroll;
+}
 
 /*from tuicool*/
 
@@ -156,51 +166,50 @@ html {
 	padding: 0 10px;
 }
 
-body{
+body {
 	overflow-x: hidden;
 }
 
 /*view-animate*/
 .view-animate-container {
-  /*position:relative;*/
-  /*height:100px!important;*/
-  /*position:relative;*/
-  /*background:white;*/
-  /*border:1px solid black;*/
-  /*height:40px;*/
-  overflow:hidden;
+	/*position:relative;*/
+	/*height:100px!important;*/
+	/*position:relative;*/
+	/*background:white;*/
+	/*border:1px solid black;*/
+	/*height:40px;*/
+	overflow: hidden;
 }
 
 .view-animate {
-  /*padding:10px;*/
+	/*padding:10px;*/
 }
 
 .view-animate.ng-enter, .view-animate.ng-leave {
-  -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
-  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+	-webkit-transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+	transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+	display: block;
+	/*width:100%;*/
+	/*border-left:1px solid black;*/
 
-  display:block;
-  /*width:100%;*/
-  /*border-left:1px solid black;*/
-
-  position:relative;
-  /*top:0;
-  left:0;
-  right:0;
-  bottom:0;
-  padding:10px;*/
+	position: relative;
+	/*top:0;
+	 left:0;
+	 right:0;
+	 bottom:0;
+	 padding:10px;*/
 }
 
 .view-animate.ng-enter {
-  left:100%;
+	left: 100%;
 }
 
 .view-animate.ng-enter.ng-enter-active {
-  left:0;
+	left: 0;
 }
 
 .view-animate.ng-leave.ng-leave-active {
-  left:-200%;
-  display: none;
+	left: -200%;
+	display: none;
 }
 

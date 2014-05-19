@@ -11,9 +11,9 @@
 
 				<div class="article" ng-repeat='article in articleList' >
 					<div class="thumbnail">
-						<div class="abs-title article_title">
+						<div class="abs-title article_title" >
 							<h4>
-							<a href="" target="_blank">
+							<a ng-href="/yaowen/{{article._id}}" >
 								{{article.title}}
 							</a></h4>
 						</div>
@@ -26,7 +26,7 @@
 
 						</div>
 						<div class="bottom">
-							<a ng-click="toggle($index)">
+							<a ng-click="toggle($index,$event)">
 								点击折叠
 							</a>
 							<em>来源:</em>
@@ -48,7 +48,9 @@
 
 				</div>
 			</div>
-
+			<div class="debug">
+				
+			</div>
 		</div>
 	</div>
 </div>

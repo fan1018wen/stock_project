@@ -2,7 +2,6 @@ var myAppModule = angular.module('myApp', ['ngSanitize', 'ngAnimate', 'ngRoute']
 
 myAppModule.controller('articleListCtrl', function($scope, $http) {
 	window.articleScope = $scope;
-	debugger;
 	$http({
 		method : "GET",
 		url : "api/article",
@@ -13,7 +12,9 @@ myAppModule.controller('articleListCtrl', function($scope, $http) {
 		return console.log("获取数据失败,请刷新页面");
 	});
 
-	$scope.toggle = function(index) {
+	$scope.toggle = function(index,event) {
+		debugger;
+		if(typeof event !='undefined')	event.target.parentElement.parentElement.childNodes[1].scrollIntoViewIfNeeded();
 		var article = $scope.articleList[index];
 		if ( typeof article.body != 'undefined' && article.body.length > 10) {
 			article.body = "";
@@ -22,7 +23,7 @@ myAppModule.controller('articleListCtrl', function($scope, $http) {
 		article.body = '<h1>loading ... </h1>';
 		$http({
 			method : "GET",
-			url : "api/article/" + article._id
+			url : "/api/article/" + article._id
 		}).success(function(data, status, headers, config) {
 			article.body = data.body;
 		}).error(function(data, status, headers, config) {
@@ -32,10 +33,14 @@ myAppModule.controller('articleListCtrl', function($scope, $http) {
 }); 
 
 myAppModule.config(function($routeProvider, $locationProvider) {
-	$routeProvider.when('/yaowen', {
-//		controller : "articleListCtrl",
+	var yaowen = {
+		controller : "articleListCtrl",
 		templateUrl : '/static/yaowen.html'
-	}).when('/', {
+	};
+	
+	$routeProvider.when('/yaowen', yaowen).
+	when('/yaowen/:id', yaowen).
+	when('/', {
 		redirectTo : '/static/yaowen.html'
 	}).when('/dashi', {
 		templateUrl : '/static/dashi.html'
@@ -48,6 +53,7 @@ myAppModule.config(function($routeProvider, $locationProvider) {
 	});
 
 	$locationProvider.html5Mode(true);
-
 })
+ 
+ 
 
