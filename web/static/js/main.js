@@ -1,22 +1,14 @@
-var myAppModule = angular.module('myApp', ['ngSanitize', 'ngAnimate', 'ngRoute']);
+var myAppModule = angular.module('myApp', ['ngSanitize', 'ngAnimate', 'ngRoute', 'infinite-scroll']);
 
 myAppModule.controller('articleListCtrl', function($scope, $http) {
 	window.articleScope = $scope;
-	$http({
-		method : "GET",
-		url : "api/article",
-		cache:true
-	}).success(function(data, status, headers, config) {
-		$scope.articleList = data;
-	}).error(function(data, status, headers, config) {
-		return console.log("获取数据失败,请刷新页面");
-	});
-
-	$scope.toggle = function(index,event) {
-//		debugger;
-		if(typeof event !='undefined')	event.target.parentElement.parentElement.childNodes[1].scrollIntoViewIfNeeded();
+	$scope.articleList=[];
+	$scope.toggle = function(index, event) {
+		//		debugger;
+		if ( typeof event != 'undefined')
+			event.target.parentElement.parentElement.childNodes[1].scrollIntoViewIfNeeded();
 		var article = $scope.articleList[index];
-		article.readed=true;
+		article.readed = true;
 		if ( typeof article.body != 'undefined' && article.body.length > 10) {
 			article.body = "";
 			return;
@@ -31,10 +23,24 @@ myAppModule.controller('articleListCtrl', function($scope, $http) {
 			article.body = "获取数据失败,请刷新页面";
 		});
 	}
-}); 
+
+	$scope.loadMore = function() {
+		var page=$scope.articleList.length/10;
+		$http({
+			method : "GET",
+			url : "api/articleList/"+page,
+		}).success(function(data, status, headers, config) {
+			for(var i in data){
+				$scope.articleList.push(data[i]);	
+			}
+		}).error(function(data, status, headers, config) {
+			return console.log("获取数据失败,请刷新页面");
+		});
+	}
+});
 
 myAppModule.config(function($routeProvider, $locationProvider) {
-	
+
 	$routeProvider.when('/yaowen', {
 		controller : "articleListCtrl",
 		templateUrl : '/static/yaowen.html'
@@ -49,9 +55,6 @@ myAppModule.config(function($routeProvider, $locationProvider) {
 	}).otherwise({
 		redirectTo : '/404'
 	});
-
 	$locationProvider.html5Mode(true);
 })
- 
- 
 

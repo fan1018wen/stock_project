@@ -7,9 +7,9 @@ app = Flask(__name__)
 
 
 
-@app.route('/api/article')
-def article():
-    return route.article()
+@app.route('/api/articleList/<int:page>')
+def articleList(page):
+    return route.articleList(page)
 
 @app.route('/api/article/<id>')
 def article_content(id):

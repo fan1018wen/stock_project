@@ -11,9 +11,9 @@ Article = Connection().stock.Article
 
 
 
-def article():
+def articleList(page):
     # import ipdb;ipdb.set_trace()
-    data = Article.find({},{"title":1,"datetime":1,"url":1,"keyword":1,"datetime":1,"summary":1}).limit(20)
+    data = Article.find({},{"title":1,"datetime":1,"url":1,"keyword":1,"datetime":1,"summary":1}).skip(page*10).limit(10)
     data = [i for i in data]
     j=[]
     for i in data:
@@ -24,6 +24,8 @@ def article():
     #pr(j)
     j = json.dumps(j,ensure_ascii=False)
     return j
+
+
 
 def article_content(id):
     

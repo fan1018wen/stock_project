@@ -7,7 +7,7 @@
 		<li><a href="#tab3" data-toggle="tab">股票资讯</a></li>
 		</ul>-->
 		<div id="myTabContent" class="tab-content" ng-controller='articleListCtrl'>
-			<div id="tab1" class="tab-pane fade active in">
+			<div id="tab1" class="tab-pane fade active in" infinite-scroll='loadMore()' infinite-scroll-distance='2'>
 
 				<div class="article" ng-repeat='article in articleList' >
 					<div class="thumbnail">
