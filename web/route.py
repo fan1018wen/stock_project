@@ -11,9 +11,12 @@ Article = Connection().stock.Article
 
 
 
-def articleList(page):
+def article_list(page,keyword=""):
     # import ipdb;ipdb.set_trace()
-    data = Article.find({},{"title":1,"datetime":1,"url":1,"keyword":1,"datetime":1,"summary":1}).skip(page*10).limit(10)
+    if keyword=="": data=Article.find({},{"title":1,"datetime":1,"url":1,"keyword":1,"datetime":1,"summary":1})
+    else :data=Article.find({"keyword":keyword},{"title":1,"datetime":1,"url":1,"keyword":1,"datetime":1,"summary":1})
+    #import ipdb;ipdb.set_trace()
+    data = data.sort("datetime",-1).skip(page*10).limit(10)
     data = [i for i in data]
     j=[]
     for i in data:

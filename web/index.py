@@ -8,8 +8,16 @@ app = Flask(__name__)
 
 
 @app.route('/api/articleList/<int:page>')
-def articleList(page):
-    return route.articleList(page)
+def article_list(page):
+    return route.article_list(page)
+
+
+@app.route('/api/articleList/keyword/<keyword>/<int:page>')
+def article_list_keyword(keyword,page):
+    # print keyword
+    # print type(keyword)
+    return route.article_list(page,keyword)
+
 
 @app.route('/api/article/<id>')
 def article_content(id):

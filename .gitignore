@@ -109,3 +109,4 @@ docs/_build/
 /obj
 /.ipynb_checkpoints
 /web/bottle-doc-zh-cn-master
+/test
