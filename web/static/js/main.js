@@ -2,7 +2,7 @@ var myAppModule = angular.module('myApp', ['ngSanitize', 'ngAnimate', 'ngRoute',
 
 myAppModule.controller('articleListCtrl', function($scope, $http) {
 	window.articleScope = $scope;
-	$scope.articleList=[];
+	$scope.articleList = [];
 	$scope.toggle = function(index, event) {
 		//		debugger;
 		if ( typeof event != 'undefined')
@@ -25,13 +25,13 @@ myAppModule.controller('articleListCtrl', function($scope, $http) {
 	}
 
 	$scope.loadMore = function() {
-		var page=$scope.articleList.length/10;
+		var page = $scope.articleList.length / 10;
 		$http({
 			method : "GET",
-			url : "api/articleList/"+page,
+			url : "api/articleList/" + page,
 		}).success(function(data, status, headers, config) {
-			for(var i in data){
-				$scope.articleList.push(data[i]);	
+			for (var i in data) {
+				$scope.articleList.push(data[i]);
 			}
 		}).error(function(data, status, headers, config) {
 			return console.log("获取数据失败,请刷新页面");
@@ -39,17 +39,13 @@ myAppModule.controller('articleListCtrl', function($scope, $http) {
 	}
 });
 
-
-
-myAppModule.controller('mainCtrl', function($scope, $http,$route) {
-	$scope.bodyKeyDown=function(event){
-		if(event.keyCode==82){
+myAppModule.controller('mainCtrl', function($scope, $http, $route) {
+	$scope.bodyKeyDown = function(event) {
+		if (event.keyCode == 82) {
 			$route.reload();
 		}
 	}
 });
-
-
 
 myAppModule.config(function($routeProvider, $locationProvider) {
 
@@ -71,6 +67,5 @@ myAppModule.config(function($routeProvider, $locationProvider) {
 	});
 	$locationProvider.html5Mode(true);
 
-      
 });
 
