@@ -38,6 +38,6 @@ def article_content(id):
 if __name__ =='__main__':
     pass
     # print article().GET()
-    print article_content("537613a67f949f18042cb731")
+    #print article_content("537613a67f949f18042cb731")
 
 
