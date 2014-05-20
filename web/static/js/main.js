@@ -1,6 +1,6 @@
 var myAppModule = angular.module('myApp', ['ngSanitize', 'ngAnimate', 'ngRoute', 'infinite-scroll']);
 
-myAppModule.controller('articleListCtrl', function($scope, $http,$location) {
+myAppModule.controller('articleListCtrl', function($scope, $http, $location) {
 
 	window.articleScope = $scope;
 	$scope.articleList = [];
@@ -24,12 +24,14 @@ myAppModule.controller('articleListCtrl', function($scope, $http,$location) {
 			article.body = "获取数据失败,请刷新页面";
 		});
 	}
-	
+
 	$scope.loadMore = function() {
 		var page = $scope.articleList.length / 10;
 		var url;
-		if($location.$$path=='/yaowen') url= "api/articleList/" + page;
-		else if($location.$$path=='/zhuti') url= "api/articleList/keyword/"+$scope.keyword+'/' + page;
+		if ($location.$$path == '/yaowen')
+			url = "api/articleList/" + page;
+		else if ($location.$$path == '/zhuti')
+			url = "api/articleList/keyword/" + $scope.keyword + '/' + page;
 		$http({
 			method : "GET",
 			url : url,
@@ -41,13 +43,14 @@ myAppModule.controller('articleListCtrl', function($scope, $http,$location) {
 			return console.log("获取数据失败,请刷新页面");
 		});
 	};
-	
-	$scope.child.changeTag=function(){
-		console.log("chanTag");
-		$scope.articleList=[];
-		$scope.loadMore();
+	if ( typeof $scope.child != "undefined") {
+		$scope.child.changeTag = function() {
+			console.log("chanTag");
+			$scope.articleList = [];
+			$scope.loadMore();
+		}
 	}
-	
+
 });
 
 myAppModule.controller('mainCtrl', function($scope, $http, $route) {
@@ -79,3 +82,20 @@ myAppModule.config(function($routeProvider, $locationProvider) {
 	$locationProvider.html5Mode(true);
 
 });
+
+//回到顶部
+$(function() {
+	showScroll();
+	function showScroll() {
+		$(window).scroll(function() {
+			var scrollValue = $(window).scrollTop();
+			scrollValue > 100 ? $('div[class=scroll]').fadeIn() : $('div[class=scroll]').fadeOut();
+		});
+		$('#scroll').click(function() {
+			$("html,body").animate({
+				scrollTop : 0
+			}, 200);
+		});
+	}
+
+})
