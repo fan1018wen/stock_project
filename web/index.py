@@ -47,7 +47,7 @@ app.jinja_env.variable_end_string=' }}'
 
 
 if __name__ == '__main__':
-    app.run(debug=True,use_debugger=True,)
+    app.run(debug=True,use_debugger=True,host='0.0.0.0')
 
     
 
