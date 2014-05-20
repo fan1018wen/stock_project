@@ -1,6 +1,7 @@
 var myAppModule = angular.module('myApp', ['ngSanitize', 'ngAnimate', 'ngRoute', 'infinite-scroll']);
 
-myAppModule.controller('articleListCtrl', function($scope, $http) {
+myAppModule.controller('articleListCtrl', function($scope, $http,$location) {
+
 	window.articleScope = $scope;
 	$scope.articleList = [];
 	$scope.toggle = function(index, event) {
@@ -23,12 +24,15 @@ myAppModule.controller('articleListCtrl', function($scope, $http) {
 			article.body = "获取数据失败,请刷新页面";
 		});
 	}
-
+	
 	$scope.loadMore = function() {
 		var page = $scope.articleList.length / 10;
+		var url;
+		if($location.$$path=='/yaowen') url= "api/articleList/" + page;
+		else if($location.$$path=='/zhuti') url= "api/articleList/keyword/"+$scope.keyword+'/' + page;
 		$http({
 			method : "GET",
-			url : "api/articleList/" + page,
+			url : url,
 		}).success(function(data, status, headers, config) {
 			for (var i in data) {
 				$scope.articleList.push(data[i]);
@@ -36,7 +40,14 @@ myAppModule.controller('articleListCtrl', function($scope, $http) {
 		}).error(function(data, status, headers, config) {
 			return console.log("获取数据失败,请刷新页面");
 		});
+	};
+	
+	$scope.child.changeTag=function(){
+		console.log("chanTag");
+		$scope.articleList=[];
+		$scope.loadMore();
 	}
+	
 });
 
 myAppModule.controller('mainCtrl', function($scope, $http, $route) {

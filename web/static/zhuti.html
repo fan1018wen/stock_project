@@ -8,7 +8,7 @@ var canvasCtrl = function($scope, $http, $route) {
 		}).success(function(data) {
 			drawTag(data);
 		});
-
+		$scope.child={} //传替到子控制器
 		var drawTag = function(list) {
 			//					debugger;
 			var canvas = $(".tag-cloudy:last")[0];
@@ -24,9 +24,9 @@ var canvasCtrl = function($scope, $http, $route) {
 				"click" : function(item, dimension, event) {
 					$scope.$apply( function(item) {
 						//						debugger
-						$scope.clickTag = item[0];
+						$scope.keyword = item[0];
 					}(item));
-					//console.log(item,dimension,event);
+					$scope.child.changeTag();
 				},
 				"hover" : function(item, dimension, event) {
 					if (item) {
@@ -47,9 +47,8 @@ var canvasCtrl = function($scope, $http, $route) {
 	<canvas class="tag-cloudy"  width="1170px" height="600px"></canvas>
 </div>
 
-
 <div ng-controller="canvasCtrl">
-	{{clickTag}}
+	<ng-include src=" '/static/yaowen.html' "></ng-include>
 </div>
 
 
