@@ -35,8 +35,30 @@ def article_content(id):
     data = Article.find_one({'_id':ObjectId(id)},{'body':1,"_id":0})
     return json.dumps(data,ensure_ascii=False)
 
+
+from bson.son import SON
+
+def tags_count():
+    result = Article.aggregate([
+         {"$unwind": "$keyword"},
+         {"$group": {"_id": "$keyword", "count": {"$sum": 1}}},
+         {"$sort": SON([("count", -1), ("_id", -1)])}
+     ])
+    N=200
+    result=result['result'][0:N]
+    m = max([ i['count'] for i in result])
+    def f(n):
+        n=n*10/m
+        if(n>5) :n=5
+        return n
+    return [(i['_id'],f(i['count']) ) for i in result if not i['_id'].isdigit()]
+
+
+
+
 if __name__ =='__main__':
     pass
+    print tags_count()
     # print article().GET()
     #print article_content("537613a67f949f18042cb731")
 

@@ -23,6 +23,11 @@ def article_list_keyword(keyword,page):
 def article_content(id):
     return route.article_content(id)
 
+@app.route('/api/tags')
+def tags_count():
+    return flask.json.dumps(route.tags_count())
+
+
 
 # anything route return  index 
 @app.route('/')
