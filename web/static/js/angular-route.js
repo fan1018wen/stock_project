@@ -532,7 +532,7 @@ function $RouteProvider(){
                 templateUrl = $sce.getTrustedResourceUrl(templateUrl);
                 if (angular.isDefined(templateUrl)) {
                   next.loadedTemplateUrl = templateUrl;
-                  template = $http.get(templateUrl, {cache: $templateCache}).
+                  template = $http.get(templateUrl, {cache: false}).
                       then(function(response) { return response.data; });
                 }
               }
