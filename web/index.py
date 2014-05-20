@@ -2,9 +2,9 @@
 from flask import *
 import flask
 import route
-
+from werkzeug.contrib.cache import SimpleCache
 app = Flask(__name__)
-
+cache = SimpleCache()
 
 
 @app.route('/api/articleList/<int:page>')
@@ -25,7 +25,12 @@ def article_content(id):
 
 @app.route('/api/tags')
 def tags_count():
-    return flask.json.dumps(route.tags_count())
+    rv = cache.get('tags_count')
+    if rv is None:
+        print "no cache tags_count"
+        rv = flask.json.dumps(route.tags_count())
+        cache.set('tags_count', rv, timeout=5 * 60)
+    return rv
 
 
 

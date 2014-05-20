@@ -30,8 +30,12 @@ myAppModule.controller('articleListCtrl', function($scope, $http, $location) {
 		var url;
 		if ($location.$$path == '/yaowen')
 			url = "api/articleList/" + page;
-		else if ($location.$$path == '/zhuti')
+		else if ($location.$$path == '/zhuti') {
+			if ($scope.keyword == "")
+				return;
 			url = "api/articleList/keyword/" + $scope.keyword + '/' + page;
+		}
+
 		$http({
 			method : "GET",
 			url : url,

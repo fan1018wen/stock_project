@@ -11,6 +11,12 @@
     <OutputPath>.</OutputPath>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <CommandLineArguments />
+    <InterpreterPath />
+    <DebugStdLib>False</DebugStdLib>
+    <InterpreterArguments />
+    <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
@@ -21,7 +27,9 @@
     <Compile Include="analyst\getTop.py" />
     <Compile Include="analyst\unique.py" />
     <Compile Include="web\bottle.py" />
-    <Compile Include="web\index.py" />
+    <Compile Include="web\index.py">
+      <Publish>True</Publish>
+    </Compile>
     <Compile Include="web\route.py" />
     <Content Include="web2\Gruntfile.js" />
     <Compile Include="crawler\scrapy_sina\items.py" />

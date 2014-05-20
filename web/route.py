@@ -2,8 +2,6 @@
 from pymongo import Connection
 import json
 from bson import ObjectId
-def hello():
-    return 'Heaallo,aaa dsdwoasdasrld!'
 
 
 
