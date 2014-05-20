@@ -39,6 +39,18 @@ myAppModule.controller('articleListCtrl', function($scope, $http) {
 	}
 });
 
+
+
+myAppModule.controller('mainCtrl', function($scope, $http,$route) {
+	$scope.bodyKeyDown=function(event){
+		if(event.keyCode==82){
+			$route.reload();
+		}
+	}
+});
+
+
+
 myAppModule.config(function($routeProvider, $locationProvider) {
 
 	$routeProvider.when('/yaowen', {
