@@ -26,7 +26,6 @@
     <Compile Include="text.py" />
     <Compile Include="analyst\getTop.py" />
     <Compile Include="analyst\unique.py" />
-    <Compile Include="web\bottle.py" />
     <Compile Include="web\index.py">
       <Publish>True</Publish>
     </Compile>
