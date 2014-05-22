@@ -5,7 +5,7 @@ import route
 from werkzeug.contrib.cache import SimpleCache
 app = Flask(__name__)
 cache = SimpleCache()
-
+app.config['SEND_FILE_MAX_AGE_DEFAULT']=-1
 
 @app.route('/api/articleList/<int:page>')
 def article_list(page):
@@ -32,6 +32,10 @@ def tags_count():
         cache.set('tags_count', rv, timeout=5 * 60)
     return rv
 
+
+@app.route('/api/fenlei')
+def fenlei():
+    return route.fenlei()
 
 
 # anything route return  index 
