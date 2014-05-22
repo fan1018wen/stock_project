@@ -104,3 +104,31 @@ class SinaSpider(CrawlSpider):
         except Exception as e:
             print e
 
+
+
+
+
+
+class f10Spider(CrawlSpider):
+    name = "f10"
+    allowed_domains = ["basic.10jqka.com.cn"]
+    start_urls = [
+        'http://basic.10jqka.com.cn/'
+    ]
+    rules = [
+        Rule(sle(allow=["(ths|dq|gn|zjh)/[A-Z0-9]+\.html", ]), callback='parse_fenlei',follow=False),
+    ]
+
+    def parse_fenlei(self,response):
+        print response.url
+        sel = Selector(response)
+        title_list = sel.xpath("/html/body/div[1]/div/div[2]/a/@title").extract()
+        url_list = sel.xpath("/html/body/div[1]/div/div[2]/a/@href").extract()
+        id_list = [i[1:-1] for i in url_list]
+        fenlei = sel.xpath("/html/body/div[1]/div/div[1]/h2/span/a[2]/@title").extract()[0]
+        item = Fenlei(title_list=title_list,id_list=id_list,fenlei=fenlei)
+        # import ipdb;ipdb.set_trace()    
+        return item
+
+
+

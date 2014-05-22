@@ -5,18 +5,19 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{83051cdb-e94c-41b7-83d5-79bb9031020e}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>web\index.py</StartupFile>
+    <StartupFile>crawler\scrapy_sina\main.py</StartupFile>
     <SearchPath />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
-    <CommandLineArguments />
+    <CommandLineArguments>crawl f10</CommandLineArguments>
     <InterpreterPath />
     <DebugStdLib>False</DebugStdLib>
     <InterpreterArguments />
-    <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
+    <EnableNativeCodeDebugging>True</EnableNativeCodeDebugging>
+    <IsWindowsApplication>False</IsWindowsApplication>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />

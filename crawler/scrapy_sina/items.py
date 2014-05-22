@@ -14,3 +14,10 @@ class Article(Item):
     url = Field()
     pass
 
+
+
+class Fenlei(Item):
+    title_list = Field()
+    id_list = Field()
+    fenlei = Field()
+    pass

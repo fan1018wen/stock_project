@@ -78,6 +78,8 @@ myAppModule.config(function($routeProvider, $locationProvider) {
 		templateUrl : '/static/zhuti.html'
 	}).when('/gegu', {
 		templateUrl : '/static/gegu.html'
+	}).when('/fenlei', {
+		templateUrl : '/static/fenlei.html'
 	}).when('/404', {
 		templateUrl : '/static/404.html'
 	}).otherwise({

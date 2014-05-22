@@ -35,11 +35,11 @@ class JsonWithEncodingPipeline(object):
 class MongodbPipeline(object):
     def __init__(self):
         from pymongo import Connection
-        self.Artile = Connection().stock.Article
+        self.Artile = Connection().stock.FenleiTest
 
     def process_item(self, item, spider):
         # import ipdb;ipdb.set_trace()
-
+        # import ipdb;ipdb.set_trace()
         self.Artile.insert(dict(item))
         return item
 
