@@ -40,17 +40,33 @@
 		border-radius: 4px 4px 0 0;
 		box-shadow: none;
 	}
+
 </style>
 
 <div ng-controller='fenleiCtrl' class="container">
-	<!--<h3>分类</h3>-->
-	<div class="bs-example">
-		<button type="button" class="btn btn-default dropdown-toggle" >
-			分类
-		</button>
-		<div class="row thumbnail fenlei">
-			<span ng-repeat="i in fenleiList" ng-click="clickFenlei()"> {{i.name}}({{i.count}}) </span>
+
+	<div class="row">
+
+		<!--<div class="btn-group btn-group-lg ">
+		<button type="button" class="btn btn-default">分类</button>
+		<input type="text" placeholder="Username">
+		<button type="button" class="btn btn-default">公司</button>
+		</div>-->
+
+		<form class="form-inline" role="form">
+			<button type="submit" class="btn btn-default" ng-click="showFenlei=!showFenlei">
+				显示/隐藏分类
+			</button>
+			<div class="form-group">
+				<input type="text" ng-model="fenleiSearch" class="form-control"  placeholder="搜索分类">
+			</div>
+			
+		</form>
+
+		<div class="col-md-12 thumbnail fenlei" ng-show="showFenlei || fenleiSearch">
+			<span ng-repeat="i in fenleiList | filter:fenleiSearch" ng-click="clickFenlei($index)"> {{i.name}}({{i.count}}) </span>
 		</div>
+		
 	</div>
 	<h3>公司</h3>
 	<div class="company row thumbnail ">
@@ -69,7 +85,7 @@
 					$route.reload();
 				} else {
 					oldHtml = newHtml;
-					console.log('watch')
+					//					console.log('watch')
 				}
 			});
 		};
