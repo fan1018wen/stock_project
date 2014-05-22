@@ -1,57 +1,7 @@
-<style>
-	.fenlei span {
-		/*color: rgb(255, 186, 0);*/
-		cursor: pointer;
-		font-size: 14px;
-		margin-left: 13px;
-		margin-right: 13px;
-		border-radius: 4px;
-		background-color: #EFF6FA;
-		float: left;
-	}
-	.fenlei span:hover {
-		background: #259;
-		color: #fff;
-		text-decoration: none;
-	}
-
-	.company span {
-		/*color: rgb(255, 186, 0);*/
-		cursor: pointer;
-		font-size: 20px;
-		margin-left: 13px;
-		margin-right: 13px;
-		border-radius: 4px;
-		/*background-color: #EFF6FA;*/
-		float: left;
-	}
-	.company span:hover {
-		background: #259;
-		color: #fff;
-		text-decoration: none;
-	}
-
-	.bs-example {
-		margin-left: 0;
-		margin-right: 0;
-		background-color: #fff;
-		border-width: 1px;
-		border-color: #ddd;
-		border-radius: 4px 4px 0 0;
-		box-shadow: none;
-	}
-
-</style>
 
 <div ng-controller='fenleiCtrl' class="container">
 
 	<div class="row">
-
-		<!--<div class="btn-group btn-group-lg ">
-		<button type="button" class="btn btn-default">分类</button>
-		<input type="text" placeholder="Username">
-		<button type="button" class="btn btn-default">公司</button>
-		</div>-->
 
 		<form class="form-inline" role="form">
 			<button type="submit" class="btn btn-default" ng-click="showFenlei=!showFenlei">
@@ -60,9 +10,12 @@
 			<div class="form-group">
 				<input type="text" ng-model="fenleiSearch" class="form-control"  placeholder="搜索分类">
 			</div>
-			
+			<div class="form-group">
+				<input type="text" ng-model="CompanySearch" class="form-control" ng-change="searchCompany()" placeholder="搜索公司">
+			</div>
+			{{CompanySearch}}
 		</form>
-
+		<!--分类列表-->
 		<div class="col-md-12 thumbnail fenlei" ng-show="showFenlei || fenleiSearch">
 			<span ng-repeat="i in fenleiList | filter:fenleiSearch" ng-click="clickFenlei($index)"> {{i.name}}({{i.count}}) </span>
 		</div>

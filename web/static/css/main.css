@@ -1,4 +1,29 @@
 /*me*/
+.fenlei span, .company span {
+	/*color: rgb(255, 186, 0);*/
+	cursor: pointer;
+	font-size: 14px;
+	margin-left: 13px;
+	margin-right: 13px;
+	border-radius: 4px;
+	background-color: #EFF6FA;
+	float: left;
+}
+.fenlei span:hover, .company span:hover {
+	background: #259;
+	color: #fff;
+	text-decoration: none;
+}
+
+.bs-example {
+	margin-left: 0;
+	margin-right: 0;
+	background-color: #fff;
+	border-width: 1px;
+	border-color: #ddd;
+	border-radius: 4px 4px 0 0;
+	box-shadow: none;
+}
 
 .scroll {
 	width: 80px;
