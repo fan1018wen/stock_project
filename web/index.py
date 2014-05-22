@@ -38,8 +38,8 @@ def tags_count():
 @app.route('/')
 @app.route('/<id1>')
 @app.route('/<id1>/<id2>')
-def hello_world(id1="",id2=""):
-    return send_file('static/index.html')
+def index(id1="",id2=""):
+    return send_file('index.html')
 
 
 app.jinja_env.variable_start_string='{{ '
