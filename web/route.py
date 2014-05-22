@@ -6,6 +6,7 @@ from bson import ObjectId
 
 
 Article = Connection().stock.Article
+CompanyFenlei = Connection().stock.CompanyFenlei
 
 
 
@@ -52,7 +53,12 @@ def tags_count():
     return [(i['_id'],f(i['count']) ) for i in result if not i['_id'].isdigit()]
 
 
-
+def fenlei():
+    r={}
+    for i in CompanyFenlei.find({},{"_id":0}):
+        r[i['fenlei']]=i
+    r = json.dumps(r,ensure_ascii=False)
+    return r
 
 if __name__ =='__main__':
     pass
