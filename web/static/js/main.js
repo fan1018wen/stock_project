@@ -105,3 +105,23 @@ $(function() {
 	}
 
 })
+
+
+var fenleiCtrl = function($scope, $http) {
+		$scope.fenleiNow = 1
+		$http.get('api/fenlei').success(function(data) {
+			$scope.fenlei = data;
+			$scope.fenleiList = [];
+			for (var i in data) {
+				item = {
+					"name" : i,
+					"count" : data[i].id_list.length
+				}
+				$scope.fenleiList.push(item);
+			}
+		});
+
+		$scope.clickFenlei = function(index) {
+			$scope.company=$scope.fenlei[$scope.fenleiList[index].name];
+		}
+	};
