@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{83051cdb-e94c-41b7-83d5-79bb9031020e}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>crawler\scrapy_sina\main.py</StartupFile>
+    <StartupFile>web\index.py</StartupFile>
     <SearchPath />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -16,7 +16,7 @@
     <InterpreterPath />
     <DebugStdLib>False</DebugStdLib>
     <InterpreterArguments />
-    <EnableNativeCodeDebugging>True</EnableNativeCodeDebugging>
+    <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
     <IsWindowsApplication>False</IsWindowsApplication>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
