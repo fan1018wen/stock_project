@@ -3,6 +3,7 @@ from flask import *
 import flask
 import route
 from werkzeug.contrib.cache import SimpleCache
+import time
 app = Flask(__name__)
 cache = SimpleCache()
 app.config['SEND_FILE_MAX_AGE_DEFAULT']=-1
@@ -25,6 +26,7 @@ def article_content(id):
 
 @app.route('/api/tags')
 def tags_count():
+    t = time.time()
     rv = cache.get('tags_count')
     if rv is None:
         print "no cache tags_count"
