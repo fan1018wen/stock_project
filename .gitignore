@@ -111,3 +111,6 @@ docs/_build/
 /web/bottle-doc-zh-cn-master
 /test
 /web/test
+/web/static/js/*.map
+/web/static/js/1055.json
+/web/static/js
