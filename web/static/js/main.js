@@ -82,6 +82,8 @@ myAppModule.config(function($routeProvider, $locationProvider) {
 		templateUrl : '/static/fenlei.html'
 	}).when('/404', {
 		templateUrl : '/static/404.html'
+	}).when('/company', {
+		templateUrl : '/static/company.html'
 	}).otherwise({
 		redirectTo : '/404'
 	});

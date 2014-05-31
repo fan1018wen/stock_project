@@ -253,3 +253,8 @@ body {
 	display: none;
 }
 
+#company-nav {
+	width: 686px;
+	margin-left: auto;
+	margin-right: auto;
+}
