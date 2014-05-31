@@ -18,10 +18,19 @@ window.searchCompany = (company,keyword)->
                 ans.push(item)
         enque ans
     searchName = ->
-        return
+        for item in company
+            name=item.title
+            if name.toString().indexOf(keyword)!=-1 
+                ans.push(item)
+        enque ans
     
     searchPinYin = ->
-        return
+        for item in company
+            py=item.title_pinyin
+            if py.toString().indexOf(keyword)!=-1 
+                ans.push(item)
+        enque ans
+        
     if isNaN parseInt keyword
        if /^[a-z]+$/.test keyword
             return searchPinYin()
