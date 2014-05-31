@@ -105,40 +105,4 @@ $(function() {
 	}
 
 })
-var fenleiCtrl = function($scope, $http,$filter) {
-	$scope.fenleiNow = 1
-	$http.get('api/fenlei').success(function(data) {
-		$scope.fenlei = data;
-		$scope.fenleiList = [];
-		for (var i in data) {
-			item = {
-				"name" : i,
-				"count" : data[i].id_list.length,
-				'namePinYin' : data[i].fenlei_pinyin
-			}
-			$scope.fenleiList.push(item);
-		}
-
-		$scope.company = []
-		for (var i in $scope.fenlei) {
-			var item = $scope.fenlei[i];
-			for (var j in item.id_list) {
-				company = {}
-				company.id = j
-				company.title = item.title_list[j]
-				company.title_pinyin = item.title_list_pinyin[j]
-				$scope.company.push(company)
-			}
-		}
-
-	});
-
-	$scope.clickFenlei = function(index) {
-		$scope.company = $scope.fenlei[$scope.fenleiList[index].name];
-	}
-	$scope.searchCompany = function() {
-		debugger
-		alert('todo');
-	};
-};
 
