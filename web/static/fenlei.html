@@ -21,7 +21,11 @@
 	</div>
 	<h3>公司</h3>
 	<div class="company row thumbnail ">
-		<span ng-repeat='i in companyShow.id_list'>{{i}} {{companyShow.title_list[$index]}}</span>
+		<span ng-repeat='i in companyShow.id_list' ng-click="clickCompany($index)">{{i}} {{companyShow.title_list[$index]}}</span>
+	</div>
+	<div class="row">
+		{{nowCompany}}
+		
 	</div>
 </div>
 
@@ -75,6 +79,11 @@
 			}
 			//			debugger;
 		};
+		
+		$scope.clickCompany = function(index){
+//			debugger;
+			$scope.nowCompany = $scope.companyShow.id_list[index];
+		}
 	};
 
 	function reloadCtrl($http, $route) {
