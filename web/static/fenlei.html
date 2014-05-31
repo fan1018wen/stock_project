@@ -28,7 +28,7 @@
 <div ng-controller="reloadCtrl"></div>
 <script type="text/javascript" charset="utf-8">
 	var fenleiCtrl = function($scope, $http, $filter) {
-		window.scope=$scope;
+		window.scope = $scope;
 		$scope.fenleiNow = 1
 		$http.get('api/fenlei').success(function(data) {
 			$scope.fenlei = data;
@@ -56,24 +56,24 @@
 		});
 
 		$scope.clickFenlei = function(index) {
-			$scope.showFenlei=!$scope.showFenlei
+			$scope.showFenlei = !$scope.showFenlei
 			$scope.companyShow = $scope.fenlei[$scope.fenleiList[index].name];
 		}
-		
+
 		$scope.searchCompany = function() {
-			$scope.companyShow={
-				id_list:[],
-				title_list:[],
-				title_list_pinyin:[]
+			$scope.companyShow = {
+				id_list : [],
+				title_list : [],
+				title_list_pinyin : []
 			};
-			var re = searchCompany($scope.company,$scope.CompanySearch)
-			for(var i in re){
+			var re = searchCompany($scope.company, $scope.CompanySearch)
+			for (var i in re) {
 				var item = re[i];
 				$scope.companyShow.id_list.push(item.id)
 				$scope.companyShow.title_list.push(item.title)
 				$scope.companyShow.title_list_pinyin.push(item.title_pinyin)
 			}
-//			debugger;
+			//			debugger;
 		};
 	};
 
