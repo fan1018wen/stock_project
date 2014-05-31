@@ -1,15 +1,22 @@
 window.searchCompany = (company,keyword)->
     ans=[]
     isAdd={}
+    enque = (ans)->
+        isAdd={}
+        re=[]
+        for item in ans
+            id=item.id
+            unless isAdd[id]
+                re.push item
+                isAdd[id]=1
+        if re.length>50 then re=re[0...50] else re
     searchId = ->
         #if parseInt(keyword)<100 then return
         for item in company
             id=item.id
             if id.toString().indexOf(keyword)!=-1 
-                if not isAdd[id]
-                    ans.push(item)
-                    isAdd[id]=1
-        if ans.length>50 then ans=ans[0...50] else ans
+                ans.push(item)
+        enque ans
     searchName = ->
         return
     
