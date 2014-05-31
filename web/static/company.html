@@ -14,7 +14,7 @@
 </div>
 
 <script type="text/javascript" charset="utf-8">
-	var companyCtrl = function($scope,$http) {
+	var companyCtrl = function($scope, $http) {
 		$scope.nav = [{
 			"title" : "最新动态",
 			"url" : "./"
@@ -59,9 +59,16 @@
 			"url" : "./field.html"
 		}];
 		$scope.nowCompany = "000576";
-		$scope.clickNav = function(index){
-			$scope.contentUrl = $scope.nav[index].url.replace(".",$scope.nowCompany);
-			
+		$scope.clickNav = function(index) {
+			$scope.contentUrl = $scope.nav[index].url.replace(".", $scope.nowCompany);
+			$http({
+				method : "GET",
+				url : "/api/content/" + $scope.contentUrl
+			}).success(function(data, status, headers, config) {
+				
+			}).error(function(data, status, headers, config) {
+				
+			});
 		}
 	};
 
