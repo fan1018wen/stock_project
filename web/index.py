@@ -40,6 +40,15 @@ def fenlei():
     return route.fenlei()
 
 
+@app.route('/api/content/<path:path>')
+def content_path(path):
+    import urllib2
+    from scrapy.selector import Selector
+    html = urllib2.urlopen("http://basic.10jqka.com.cn/"+path).read().decode("gbk")
+    sel = Selector(text=html)
+    return sel.css(".content").extract()[0]
+
+
 # anything route return  index 
 @app.route('/')
 @app.route('/<id1>')

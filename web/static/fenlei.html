@@ -25,8 +25,11 @@
 	</div>
 	<div class="row">
 		{{nowCompany}}
-		
 	</div>
+	<div class="row" ng-show="nowCompany">
+		<ng-include src=" '/static/company.html' "></ng-include>	
+	</div>
+	
 </div>
 
 
