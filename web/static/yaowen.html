@@ -1,50 +1,157 @@
 <div id="yaowen" class="thumbnail">
 	<!-- 要闻-->
-	<div id="yaowenNav">
+	<div id="yaowenNav" ng-controller='articleNavCtrl' ng-show="!yaowenNoShowNav">
 
-		<div id="myTabContent" class="tab-content" ng-controller='articleListCtrl'>
-			<div id="tab1" class="tab-pane fade active in" infinite-scroll='loadMore()' infinite-scroll-distance='2'>
+		<ul class="nav nav-pills" >
+			<li class="active">
+				<a href="#">
+					全部
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					要闻
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					市场
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					个股
+				</a>
+			</li>
+			<li >
+				<a href="#" ng-click="navShowMore=!navShowMore">
+					行业
+				</a>
+			</li>
+		</ul>
+		<ul class="nav nav-pills" ng-show="navShowMore">
 
-				<div class="article" ng-repeat='article in articleList' >
-					<div class="thumbnail">
-						<div class="abs-title article_title" >
-							<h4>
-							<a ng-href="{{article.url}}" target="_blank" ng-class="{article_cut:article.readed}">
-								{{article.title}}
-							</a></h4>
-						</div>
-						<div class="digest article_cut" ng-click="toggle($index)" ng-show='!article.body'>
-							<p>
-								{{article.summary}}
-							</p>
-						</div>
-						<div class="article_body" ng-bind-html="article.body" ng-show='article.body' >
+			<li>
+				<a href="#" >
+					金融
+				</a>
+			</li>
+			<li>
+				<a href="#">
+					地产
+				</a>
+			</li>
+			<li>
+				<a href="#" >
+					食品
+				</a>
+			</li>
+			<li>
+				<a href="#" >
+					酿酒
+				</a>
+			</li>
+			<li>
+				<a href="#" >
+					有色
+				</a>
+			</li>
+			<li>
+				<a href="#" >
+					水泥
+				</a>
+			</li>
+			<li>
+				<a href="#" >
+					钢铁
+				</a>
+			</li>
+			<li>
+				<a href="#" >
+					煤炭
+				</a>
+			</li>
+			<li>
+				<a href="#" >
+					医药
+				</a>
+			</li>
+			<li>
+				<a href="#" >
+					造纸
+				</a>
+			</li>
+			<li>
+				<a href="#" >
+					电力
+				</a>
+			</li>
+			<li>
+				<a href="#" >
+					家电
+				</a>
+			</li>
+			<li>
+				<a href="#" >
+					汽车
+				</a>
+			</li>
+			<li>
+				<a href="#" >
+					农业
+				</a>
+			</li>
+			<li>
+				<a href="#" >
+					军工
+				</a>
+			</li>
 
-						</div>
-						<div class="bottom">
-							<a ng-click="toggle($index,$event)">
-								点击折叠
-							</a>
-							<em>来源:</em>
-							<a ng-href="{{article.url}}" target="_blank">
-								无
-							</a>
-							<em>|分类:</em>
-							<a href="#">
-								无
-							</a>
-							<em>|阅读: 6</em>
-							<em>|发布于:{{article.datetime}} |</em>
-							<em>关键字:</em>
-							<code ng-repeat='word in article.keyword'>
-								{{word}}
-							</code>
-						</div>
-					</div>
-
-				</div>
-			</div>
-			<!--<div class="debug"></div>-->
-		</div>
+		</ul>
 	</div>
+	<div id="myTabContent" class="tab-content" ng-controller='articleListCtrl'>
+		<div id="tab1" class="tab-pane fade active in" infinite-scroll='loadMore()' infinite-scroll-distance='2'>
+
+			<div class="article" ng-repeat='article in articleList' >
+				<div class="thumbnail">
+					<div class="abs-title article_title" >
+						<h4>
+						<a ng-href="{{article.url}}" target="_blank" ng-class="{article_cut:article.readed}">
+							{{article.title}}
+						</a></h4>
+					</div>
+					<div class="digest article_cut" ng-click="toggle($index)" ng-show='!article.body'>
+						<p>
+							{{article.summary}}
+						</p>
+					</div>
+					<div class="article_body" ng-bind-html="article.body" ng-show='article.body' >
+
+					</div>
+					<div class="bottom">
+						<a ng-click="toggle($index,$event)">
+							点击折叠
+						</a>
+						<em>来源:</em>
+						<a ng-href="{{article.url}}" target="_blank">
+							无
+						</a>
+						<em>|分类:</em>
+						<a href="#">
+							无
+						</a>
+						<em>|阅读: 6</em>
+						<em>|发布于:{{article.datetime}} |</em>
+						<em>关键字:</em>
+						<code ng-repeat='word in article.keyword'>
+							{{word}}
+						</code>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<!--<div class="debug"></div>-->
+	</div>
+
 </div>

@@ -144,3 +144,8 @@ $(function() {
 
 })
 
+
+
+var articleNavCtrl=function($scope){
+
+}

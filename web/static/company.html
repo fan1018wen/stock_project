@@ -1,6 +1,6 @@
 <div class="row" ng-controller="companyCtrl">
 	<div class="col-md-12">
-		<ul class="nav nav-tabs" id="company-nav">
+		<ul class="nav nav-tabs" id="company-nav" style="cursor: pointer;">
 			<li ng-repeat="item in nav" ng-click="clickNav($index)">
 				<a >
 					{{item.title}}
@@ -9,7 +9,9 @@
 		</ul>
 	</div>
 	<div class="col-md-12">
-		{{contentUrl}}
+		<!--{{contentUrl}}-->
+		<!--<div ng-bind-html-unsafe="contentHtml" ></div>-->
+		<div ng-bind-html="contentHtml" ></div>
 	</div>
 </div>
 
@@ -58,18 +60,24 @@
 			"title" : "行业对比",
 			"url" : "./field.html"
 		}];
-		$scope.nowCompany = "000576";
+//		$scope.nowCompany = "000576";
 		$scope.clickNav = function(index) {
+			$scope.contentHtml="加载中...";
 			$scope.contentUrl = $scope.nav[index].url.replace(".", $scope.nowCompany);
 			$http({
 				method : "GET",
 				url : "/api/content/" + $scope.contentUrl
 			}).success(function(data, status, headers, config) {
-				
+				$scope.contentHtml=data;
 			}).error(function(data, status, headers, config) {
 				
 			});
 		}
+		
+		$scope.$watch($scope.nowCompany,function(){
+			$scope.clickNav();
+			console.log(" change now company");
+		})
 	};
 
 </script>
