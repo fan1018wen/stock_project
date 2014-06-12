@@ -5,6 +5,7 @@ import route
 from werkzeug.contrib.cache import SimpleCache
 import time
 app = Flask(__name__)
+app.secret_key = 'sgdersdsffdsfdsfgtderfgy#efds??><>'
 cache = SimpleCache()
 app.config['SEND_FILE_MAX_AGE_DEFAULT']=-1
 
@@ -39,6 +40,26 @@ def tags_count():
 def fenlei():
     return route.fenlei()
 
+@app.route('/api/login', methods=['POST'])
+def login():
+    return json.dumps(route.login(session,request.json))
+
+
+@app.route('/api/isLogin')
+def isLogin():
+    if session.has_key('username'):
+        return json.dumps({"isLogin":True,"username":session['username']})
+    return json.dumps({"isLogin":False})
+    
+
+#@app.route('/api/session')
+#def get_session():
+#    return json.dumps(session)
+
+@app.route('/api/logout')
+def logout():
+    session={}
+    return ""
 
 # anything route return  index 
 @app.route('/')
@@ -53,7 +74,7 @@ app.jinja_env.variable_end_string=' }}'
 
 
 if __name__ == '__main__':
-    app.run(debug=True,use_debugger=True,host='0.0.0.0',port=9005)
+    app.run(debug=True,use_debugger=True,host='0.0.0.0',port=3000)
 
     
 

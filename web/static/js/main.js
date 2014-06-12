@@ -58,10 +58,42 @@ myAppModule.controller('articleListCtrl', function($scope, $http, $location) {
 });
 
 myAppModule.controller('mainCtrl', function($scope, $http, $route) {
+	$scope.main = {};
+	//共享到自控制器
 	$scope.bodyKeyDown = function(event) {
 		if (event.keyCode == 82) {
 			$route.reload();
 		}
+	}
+	$http.get('/api/isLogin').success(function(data){
+		if(data.isLogin){
+			$scope.main.isLogin=true;
+			$scope.main.username=data.username;
+		}
+		
+	})
+	$scope.logout = function(){
+		$http.get("/api/logout")
+		.success(function(){
+			$scope.main.isLogin=false;
+			$scope.main.username="";
+		})
+	}
+});
+
+myAppModule.controller('loginCtrl', function($scope, $http, $routeParams, $route, $location) {
+
+	var login = function(data) {
+		$scope.user.msg = data.msg;
+		if (data.success) {
+			$scope.main.isLogin = true;
+			$scope.main.username = $scope.user.username;
+			$location.path("/")
+		}
+	}
+
+	$scope.submit = function(e) {
+		$http.post("/api/login", $scope.user).success(login);
 	}
 });
 
@@ -82,6 +114,10 @@ myAppModule.config(function($routeProvider, $locationProvider) {
 		templateUrl : '/static/fenlei.html'
 	}).when('/404', {
 		templateUrl : '/static/404.html'
+	}).when('/login', {
+		templateUrl : '/static/login.html'
+	}).when('/register', {
+		templateUrl : '/static/register.html'
 	}).when('/company', {
 		templateUrl : '/static/company.html'
 	}).otherwise({

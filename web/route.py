@@ -7,7 +7,8 @@ from bson import ObjectId
 
 Article = Connection().stock.Article
 CompanyFenlei = Connection().stock.CompanyFenlei
-
+User = Connection().stock.user
+User.safe=True
 
 
 def article_list(page,keyword=""):
@@ -60,9 +61,28 @@ def fenlei():
     r = json.dumps(r,ensure_ascii=False)
     return r
 
+
+def login(session,json):
+    try:
+        username=json['username']
+        password=json['password']
+        find = User.find_one({"username":username})
+        if not find:
+            return {"success":False,"msg":"用户不存在"}
+        if password==find['password']:
+            session['username']=username
+            return {"success":True,"msg":"登录成功"}
+        else :
+            return {"success":False,"msg":"密码错误"}
+    except:
+        return {"success":False,"msg":"未知错误"}
+
+#import ipdb;ipdb.set_trace()
+#print login({},"wa","ng")
+
 if __name__ =='__main__':
     pass
-    print tags_count()
+    ##print tags_count()
     # print article().GET()
     #print article_content("537613a67f949f18042cb731")
 
