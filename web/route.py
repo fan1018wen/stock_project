@@ -2,7 +2,7 @@
 from pymongo import Connection
 import json
 from bson import ObjectId
-
+import pymongo.errors
 
 
 Article = Connection().stock.Article
@@ -77,6 +77,15 @@ def login(session,json):
     except:
         return {"success":False,"msg":"未知错误"}
 
+
+def register(username,password):
+    try:
+        User.insert({'username':username,'password':password})
+    except pymongo.errors.DuplicateKeyError:
+        return json.dumps({"success":False,"msg":"用户名已经存在"})
+    return json.dumps({"success":True,"msg":"注册成功"})
+
+# print register('wa','nga')
 #import ipdb;ipdb.set_trace()
 #print login({},"wa","ng")
 

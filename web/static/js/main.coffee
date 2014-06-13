@@ -149,6 +149,21 @@ myAppModule.controller "loginCtrl", ($scope, $http, $routeParams, $route, $locat
 
   return
 
+
+myAppModule.controller "registerCtrl", ($scope, $http, $routeParams, $route, $location, loginService) ->
+  $scope.submit = (e)->
+    debugger
+    if $scope.user.username and $scope.user.password and $scope.user.password2
+      if $scope.user.password != $scope.user.password2
+        $scope.user.msg="密码不匹配"
+      else 
+        $http.post('/api/register',$scope.user).success((data)->
+          $scope.user.msg=data.msg
+          $location.path "/login"
+        )
+    else $scope.user.msg="请填写完整"
+
+
 myAppModule.config ($routeProvider, $locationProvider) ->
   $routeProvider.when("/yaowen",
     controller: "articleListCtrl"
@@ -195,5 +210,7 @@ $ ->
   return
 
 articleNavCtrl = ($scope) ->
+
+
 
 

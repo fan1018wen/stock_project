@@ -154,6 +154,24 @@
     };
   });
 
+  myAppModule.controller("registerCtrl", function($scope, $http, $routeParams, $route, $location, loginService) {
+    return $scope.submit = function(e) {
+      debugger;
+      if ($scope.user.username && $scope.user.password && $scope.user.password2) {
+        if ($scope.user.password !== $scope.user.password2) {
+          return $scope.user.msg = "密码不匹配";
+        } else {
+          return $http.post('/api/register', $scope.user).success(function(data) {
+            $scope.user.msg = data.msg;
+            return $location.path("/login");
+          });
+        }
+      } else {
+        return $scope.user.msg = "请填写完整";
+      }
+    };
+  });
+
   myAppModule.config(function($routeProvider, $locationProvider) {
     $routeProvider.when("/yaowen", {
       controller: "articleListCtrl",

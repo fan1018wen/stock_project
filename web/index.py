@@ -2,6 +2,7 @@
 from flask import *
 import flask
 import route
+import re
 from werkzeug.contrib.cache import SimpleCache
 import time
 app = Flask(__name__)
@@ -60,6 +61,23 @@ def isLogin():
 def logout():
     del session['username']
     return ""
+
+
+@app.route('/api/register',methods=['POST'])
+def register():
+    try:
+        username=request.json['username']
+        password=request.json['password']
+    except:
+        return json.dumps({"success":False,"msg":"填写不完整"})
+    if not re.match(r'^[a-z@\-_\.]{4,30}$',username):
+        return json.dumps({"success":False,"msg":"邮箱格式不正确"})
+    if len(password)<6:
+        return json.dumps({"success":False,"msg":"密码太段"})
+    if len(password)>30:
+        return json.dumps({"success":False,"msg":"密码太长"})
+    return route.register(username,password)
+
 
 @app.route('/api/content/<path:path>')
 def content_path(path):
