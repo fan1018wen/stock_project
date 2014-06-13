@@ -93,7 +93,12 @@ myAppModule.controller('loginCtrl', function($scope, $http, $routeParams, $route
 	}
 
 	$scope.submit = function(e) {
-		$http.post("/api/login", $scope.user).success(login);
+		if($scope.user.username && $scope.user.password){
+			$http.post("/api/login", $scope.user).success(login);	
+		}else{
+			$scope.user.msg="填写不正确"
+		}
+		
 	}
 });
 
