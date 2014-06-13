@@ -8,6 +8,7 @@ import pymongo.errors
 Article = Connection().stock.Article
 CompanyFenlei = Connection().stock.CompanyFenlei
 User = Connection().stock.user
+F10 = Connection().stock.f10
 User.safe=True
 
 
@@ -85,10 +86,17 @@ def register(username,password):
         return json.dumps({"success":False,"msg":"用户名已经存在"})
     return json.dumps({"success":True,"msg":"注册成功"})
 
+
+def content_path(id):
+    row = F10.find_one({"id":str(id)},{"_id":0})
+    if row:
+        return json.dumps(row)
+    return ""
+
 # print register('wa','nga')
 #import ipdb;ipdb.set_trace()
 #print login({},"wa","ng")
-
+#print content_path(603002)
 if __name__ =='__main__':
     pass
     ##print tags_count()

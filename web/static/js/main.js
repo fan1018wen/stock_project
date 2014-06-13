@@ -230,68 +230,19 @@
   });
 
   myAppModule.controller("companyCtrl", function($scope, $http) {
-    $scope.nav = [
-      {
-        title: "最新动态",
-        url: "./"
-      }, {
-        title: "公司资料",
-        url: "./company.html"
-      }, {
-        title: "股东研究",
-        url: "./holder.html"
-      }, {
-        title: "经营分析",
-        url: "./operate.html"
-      }, {
-        title: "股本结构",
-        url: "./equity.html"
-      }, {
-        title: "资本运作",
-        url: "./capital.html"
-      }, {
-        title: "盈利预测",
-        url: "./worth.html"
-      }, {
-        title: "新闻公告",
-        url: "./news.html"
-      }, {
-        title: "财务概况",
-        url: "./finance.html"
-      }, {
-        title: "主力持仓",
-        url: "./position.html"
-      }, {
-        title: "深度研究",
-        url: "./research.html"
-      }, {
-        title: "分红融资",
-        url: "./bonus.html"
-      }, {
-        title: "公司大事",
-        url: "./event.html"
-      }, {
-        title: "行业对比",
-        url: "./field.html"
-      }
-    ];
+    var getCompanyData;
+    $scope.nowCompany = 603002;
+    $scope.nav = ["最新指标", "财务透视", "主营构成", "行业新闻", "大事提醒", "八面来风", "公司概况", "管理层　", "季度财务", "大股东　", "股本分红", "资本运作", "行业地位", "公司公告", "回顾展望", "盈利预测"];
     $scope.clickNav = function(index) {
-      if (index == null) {
-        return;
-      }
-      $scope.contentHtml = "加载中...";
-      $scope.contentUrl = $scope.nav[index].url.replace(".", $scope.nowCompany);
-      return $http({
-        method: "GET",
-        url: "/api/content/" + $scope.contentUrl
-      }).success(function(data, status, headers, config) {
-        return $scope.contentHtml = data;
+      return $scope.tabNow = index + 1;
+    };
+    getCompanyData = function() {
+      return $http.get('/api/f10/' + $scope.nowCompany).success(function(data) {
+        return $scope.companyData = data;
       });
     };
-    return $scope.$watch("nowCompany", function() {
-      $scope.clickNav();
-      return console.log(" change now company");
-    });
+    getCompanyData();
+    return $scope.$watch("nowCompany", getCompanyData);
   });
 
   myAppModule.controller("canvasCtrl", function($scope, $http, $route) {

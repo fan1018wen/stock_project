@@ -176,79 +176,32 @@ myAppModule.controller "fenleiCtrl", ($scope, $http, $filter) ->
 
 
 myAppModule.controller "companyCtrl" , ($scope, $http) ->
-  $scope.nav = [
-    {
-      title: "最新动态"
-      url: "./"
-    }
-    {
-      title: "公司资料"
-      url: "./company.html"
-    }
-    {
-      title: "股东研究"
-      url: "./holder.html"
-    }
-    {
-      title: "经营分析"
-      url: "./operate.html"
-    }
-    {
-      title: "股本结构"
-      url: "./equity.html"
-    }
-    {
-      title: "资本运作"
-      url: "./capital.html"
-    }
-    {
-      title: "盈利预测"
-      url: "./worth.html"
-    }
-    {
-      title: "新闻公告"
-      url: "./news.html"
-    }
-    {
-      title: "财务概况"
-      url: "./finance.html"
-    }
-    {
-      title: "主力持仓"
-      url: "./position.html"
-    }
-    {
-      title: "深度研究"
-      url: "./research.html"
-    }
-    {
-      title: "分红融资"
-      url: "./bonus.html"
-    }
-    {
-      title: "公司大事"
-      url: "./event.html"
-    }
-    {
-      title: "行业对比"
-      url: "./field.html"
-    }
-  ]
-  
-  $scope.clickNav = (index) ->
-    unless index? then return
-    $scope.contentHtml = "加载中..."
-    $scope.contentUrl = $scope.nav[index].url.replace(".", $scope.nowCompany)
-    $http(
-      method: "GET"
-      url: "/api/content/" + $scope.contentUrl
-    ).success (data, status, headers, config) ->
-      $scope.contentHtml = data
+  $scope.nowCompany = 603002
+  $scope.nav =[
+    "最新指标"
+    "财务透视"
+    "主营构成"
+    "行业新闻"
+    "大事提醒"
+    "八面来风"
+    "公司概况"
+    "管理层　"
+    "季度财务"
+    "大股东　"
+    "股本分红"
+    "资本运作"
+    "行业地位"
+    "公司公告"
+    "回顾展望"
+    "盈利预测"]
+  $scope.clickNav = (index)->
+    $scope.tabNow=index+1
 
-  $scope.$watch "nowCompany", ->
-    $scope.clickNav()
-    console.log " change now company"
-
+  getCompanyData =  ->
+    $http.get('/api/f10/'+$scope.nowCompany).success (data)->
+      $scope.companyData = data
+  do getCompanyData
+  $scope.$watch "nowCompany",getCompanyData
 myAppModule.controller "canvasCtrl", ($scope, $http, $route) ->
   $scope.keyword = ""
   $scope.yaowenNoShowNav = 1

@@ -1,9 +1,9 @@
-<div class="row" ng-controller="companyCtrl">
+<div class="row" ng-controller="companyCtrl" ng-init="tabNow=1">
 	<div class="col-md-12">
 		<ul class="nav nav-tabs" id="company-nav" style="cursor: pointer;">
 			<li ng-repeat="item in nav" ng-click="clickNav($index)">
 				<a >
-					{{item.title}}
+					{{item}}
 				</a>
 			</li>
 		</ul>
@@ -11,6 +11,7 @@
 	<div class="col-md-12">
 		<!--{{contentUrl}}-->
 		<!--<div ng-bind-html-unsafe="contentHtml" ></div>-->
-		<div ng-bind-html="contentHtml" ></div>
+		<!-- <div ng-bind-html="contentHtml" ></div> -->
+		<pre id="comany-pre">{{companyData[tabNow]}}</pre>
 	</div>
 </div>

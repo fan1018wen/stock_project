@@ -79,16 +79,13 @@ def register():
     return route.register(username,password)
 
 
-@app.route('/api/content/<path:path>')
-def content_path(path):
-    import urllib2
-    from scrapy.selector import Selector
-    html = urllib2.urlopen("http://basic.10jqka.com.cn/"+path).read().decode("gbk")
-    sel = Selector(text=html)
-    return sel.css(".content").extract()[0]
+@app.route('/api/f10/<int:id>')
+def content_path(id):
+    return route.content_path(id)
 
 
 # anything route return  index 
+
 @app.route('/')
 @app.route('/<id1>')
 @app.route('/<id1>/<id2>')
