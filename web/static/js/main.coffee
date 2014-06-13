@@ -209,8 +209,6 @@ $ ->
   showScroll()
   return
 
-articleNavCtrl = ($scope) ->
 
 
-
-
+myAppModule.controller "articleNavCtrl", ($scope, $http, $routeParams, $route, $location, loginService) ->

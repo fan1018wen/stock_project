@@ -1,5 +1,5 @@
 (function() {
-  var articleNavCtrl, myAppModule;
+  var myAppModule;
 
   myAppModule = angular.module("myApp", ["ngSanitize", "ngAnimate", "ngRoute", "infinite-scroll"]);
 
@@ -221,7 +221,7 @@
     showScroll();
   });
 
-  articleNavCtrl = function($scope) {};
+  myAppModule.controller("articleNavCtrl", function($scope, $http, $routeParams, $route, $location, loginService) {});
 
 }).call(this);
 
