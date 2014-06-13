@@ -58,7 +58,7 @@ def isLogin():
 
 @app.route('/api/logout')
 def logout():
-    session={}
+    del session['username']
     return ""
 
 @app.route('/api/content/<path:path>')
