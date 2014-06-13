@@ -6,7 +6,6 @@ myAppModule = angular.module("myApp", [
 ])
 
 myAppModule.service "loginService", ($http, $q) ->
-  
   #loginService
   #  * isLogin 返回 是否成功登录
   #  * username 返回 登录的用户名
@@ -23,7 +22,6 @@ myAppModule.service "loginService", ($http, $q) ->
       else
         _isLogin = false
       delay.resolve _isLogin
-      return
     delay.promise
 
   @username = -> _username
@@ -33,7 +31,6 @@ myAppModule.service "loginService", ($http, $q) ->
     $http.get("/api/logout").success ->
       _isLogin = false
       delay.resolve _isLogin
-      return
     delay.promise
 
   @login = (username, password) ->
@@ -48,33 +45,26 @@ myAppModule.service "loginService", ($http, $q) ->
         delay.resolve data
       else
         delay.reject data
-      return
     delay.promise
   return
-
+  
 myAppModule.controller "articleListCtrl", ($scope, $http, $location) ->
   window.articleScope = $scope
   $scope.articleList = []
   $scope.toggle = (index, event) ->
-    
     event.target.parentElement.parentElement.childNodes[1].scrollIntoViewIfNeeded()  unless typeof event is "undefined"
     article = $scope.articleList[index]
     article.readed = true
     if typeof article.body isnt "undefined" and article.body.length > 10
       article.body = ""
-      return
     article.body = "<h1>loading ... </h1>"
     $http(
       method: "GET"
       url: "/api/article/" + article._id
     ).success((data, status, headers, config) ->
       article.body = data.body
-      return
     ).error (data, status, headers, config) ->
       article.body = "获取数据失败,请刷新页面"
-      return
-
-    return
 
   $scope.loadMore = ->
     page = $scope.articleList.length / 10
@@ -90,65 +80,42 @@ myAppModule.controller "articleListCtrl", ($scope, $http, $location) ->
     ).success((data, status, headers, config) ->
       for i of data
         $scope.articleList.push data[i]
-      return
     ).error (data, status, headers, config) ->
       console.log "获取数据失败,请刷新页面"
-
-    return
 
   unless typeof $scope.child is "undefined"
     $scope.child.changeTag = ->
       console.log "chanTag"
       $scope.articleList = []
       $scope.loadMore()
-      return
-  return
 
 myAppModule.controller "mainCtrl", ($scope, $http, $route, loginService) ->
   login = ->
     loginService.isLogin().then (e) ->
       $scope.isLogin = e
       $scope.username = loginService.username()
-      return
-
-    return
-
-  login()
+  do login
   $scope.bodyKeyDown = (event) ->
     $route.reload()  if event.keyCode is 82
-    return
 
   $scope.logout = ->
     loginService.logout().then ->
       $scope.isLogin = false
-      return
-
-    return
 
   $scope.$on "loginSuccess", ->
     login()
-    return
 
-  return
 
 myAppModule.controller "loginCtrl", ($scope, $http, $routeParams, $route, $location, loginService) ->
   $scope.submit = (e) ->
     if $scope.user.username and $scope.user.password
-      debugger
       loginService.login($scope.user.username, $scope.user.password).then (->
         $location.path "/"
         $scope.$emit "loginSuccess"
-        return
       ), (data) ->
         $scope.user.msg = data.msg
-        return
-
     else
       $scope.user.msg = "填写不正确"
-    return
-
-  return
-
 
 myAppModule.controller "registerCtrl", ($scope, $http, $routeParams, $route, $location, loginService) ->
   $scope.submit = (e)->
@@ -185,12 +152,10 @@ myAppModule.controller "fenleiCtrl", ($scope, $http, $filter) ->
         company.title = item.title_list[j]
         company.title_pinyin = item.title_list_pinyin[j]
         $scope.company.push company
-    return
 
   $scope.clickFenlei = (index) ->
     $scope.showFenlei = not $scope.showFenlei
     $scope.companyShow = $scope.fenlei[$scope.fenleiList[index].name]
-    return
 
   $scope.searchCompany = ->
     $scope.companyShow =
@@ -206,15 +171,9 @@ myAppModule.controller "fenleiCtrl", ($scope, $http, $filter) ->
       $scope.companyShow.title_list_pinyin.push item.title_pinyin
     return
 
-  
-  #     debugger;
   $scope.clickCompany = (index) ->
-    
-    #     debugger;
     $scope.nowCompany = $scope.companyShow.id_list[index]
-    return
 
-  return
 
 myAppModule.controller "companyCtrl" , ($scope, $http) ->
   $scope.nav = [
@@ -276,7 +235,6 @@ myAppModule.controller "companyCtrl" , ($scope, $http) ->
     }
   ]
   
-  #   $scope.nowCompany = "000576";
   $scope.clickNav = (index) ->
     unless index? then return
     $scope.contentHtml = "加载中..."
@@ -284,24 +242,14 @@ myAppModule.controller "companyCtrl" , ($scope, $http) ->
     $http(
       method: "GET"
       url: "/api/content/" + $scope.contentUrl
-    ).success((data, status, headers, config) ->
+    ).success (data, status, headers, config) ->
       $scope.contentHtml = data
-      return
-    ).error (data, status, headers, config) ->
-
-    return
 
   $scope.$watch "nowCompany", ->
     $scope.clickNav()
     console.log " change now company"
-    return
-
-  return
-
 
 myAppModule.controller "canvasCtrl", ($scope, $http, $route) ->
-  
-  #var list = [["紅樓夢", 6], ["賈寶玉", 3], ["林黛玉", 3], ["薛寶釵", 3], ["王熙鳳", 3], ["李紈", 3], ["賈元春", 3], ["賈迎春", 3], ["賈探春", 3], ["賈惜春", 3], ["秦可卿", 3], ["賈巧姐", 3], ["史湘雲", 3], ["妙玉", 3], ["賈政", 2], ["賈赦", 2], ["賈璉", 2], ["賈珍", 2], ["賈環", 2], ["賈母", 2], ["王夫人", 2], ["薛姨媽", 2], ["尤氏", 2], ["平兒", 2], ["鴛鴦", 2], ["襲人", 2], ["晴雯", 2], ["香菱", 2], ["紫鵑", 2], ["麝月", 2], ["小紅", 2], ["金釧", 2], ["甄士隱", 2], ["賈雨村", 2]];
   $scope.keyword = ""
   $scope.yaowenNoShowNav = 1
   $http(
@@ -309,12 +257,9 @@ myAppModule.controller "canvasCtrl", ($scope, $http, $route) ->
     url: "/api/tags"
   ).success (data) ->
     drawTag data
-    return
 
   $scope.child = {} #传替到子控制器
   drawTag = (list) ->
-    
-    #         debugger;
     canvas = $(".tag-cloudy:last")[0]
     options =
       gridSize: 50
@@ -335,12 +280,8 @@ myAppModule.controller "canvasCtrl", ($scope, $http, $route) ->
           $(".tag-cloudy").css "cursor", "pointer"
         else
           $(".tag-cloudy").css "cursor", "default"
-        return
 
     WordCloud canvas, options
-    return
-
-  return
 
 myAppModule.config ($routeProvider, $locationProvider) ->
   $routeProvider.when("/yaowen",
@@ -366,27 +307,19 @@ myAppModule.config ($routeProvider, $locationProvider) ->
     templateUrl: "/static/company.html"
   ).otherwise redirectTo: "/404"
   $locationProvider.html5Mode true
-  return
 
 
 #回到顶部
 $ ->
-  showScroll = ->
+  do ->
     $(window).scroll ->
       scrollValue = $(window).scrollTop()
       (if scrollValue > 100 then $("div[class=scroll]").fadeIn() else $("div[class=scroll]").fadeOut())
-      return
 
     $("#scroll").click ->
       $("html,body").animate
         scrollTop: 0
       , 200
-      return
-
-    return
-  showScroll()
-  return
 
 
-
-myAppModule.controller "articleNavCtrl", ($scope, $http, $routeParams, $route, $location, loginService) ->
+myAppModule.controller "articleNavCtrl", ($scope) ->

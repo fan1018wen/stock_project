@@ -20,7 +20,7 @@
         } else {
           _isLogin = false;
         }
-        delay.resolve(_isLogin);
+        return delay.resolve(_isLogin);
       });
       return delay.promise;
     };
@@ -33,7 +33,7 @@
       $http.get("/api/logout").success(function() {
         var _isLogin;
         _isLogin = false;
-        delay.resolve(_isLogin);
+        return delay.resolve(_isLogin);
       });
       return delay.promise;
     };
@@ -48,9 +48,9 @@
         if (data.success) {
           _isLogin = true;
           _username = username;
-          delay.resolve(data);
+          return delay.resolve(data);
         } else {
-          delay.reject(data);
+          return delay.reject(data);
         }
       });
       return delay.promise;
@@ -69,16 +69,15 @@
       article.readed = true;
       if (typeof article.body !== "undefined" && article.body.length > 10) {
         article.body = "";
-        return;
       }
       article.body = "<h1>loading ... </h1>";
-      $http({
+      return $http({
         method: "GET",
         url: "/api/article/" + article._id
       }).success(function(data, status, headers, config) {
-        article.body = data.body;
+        return article.body = data.body;
       }).error(function(data, status, headers, config) {
-        article.body = "获取数据失败,请刷新页面";
+        return article.body = "获取数据失败,请刷新页面";
       });
     };
     $scope.loadMore = function() {
@@ -93,23 +92,25 @@
         }
         url = "api/articleList/keyword/" + $scope.keyword + "/" + page;
       }
-      $http({
+      return $http({
         method: "GET",
         url: url
       }).success(function(data, status, headers, config) {
-        var i;
+        var i, _results;
+        _results = [];
         for (i in data) {
-          $scope.articleList.push(data[i]);
+          _results.push($scope.articleList.push(data[i]));
         }
+        return _results;
       }).error(function(data, status, headers, config) {
         return console.log("获取数据失败,请刷新页面");
       });
     };
     if (typeof $scope.child !== "undefined") {
-      $scope.child.changeTag = function() {
+      return $scope.child.changeTag = function() {
         console.log("chanTag");
         $scope.articleList = [];
-        $scope.loadMore();
+        return $scope.loadMore();
       };
     }
   });
@@ -117,39 +118,38 @@
   myAppModule.controller("mainCtrl", function($scope, $http, $route, loginService) {
     var login;
     login = function() {
-      loginService.isLogin().then(function(e) {
+      return loginService.isLogin().then(function(e) {
         $scope.isLogin = e;
-        $scope.username = loginService.username();
+        return $scope.username = loginService.username();
       });
     };
     login();
     $scope.bodyKeyDown = function(event) {
       if (event.keyCode === 82) {
-        $route.reload();
+        return $route.reload();
       }
     };
     $scope.logout = function() {
-      loginService.logout().then(function() {
-        $scope.isLogin = false;
+      return loginService.logout().then(function() {
+        return $scope.isLogin = false;
       });
     };
-    $scope.$on("loginSuccess", function() {
-      login();
+    return $scope.$on("loginSuccess", function() {
+      return login();
     });
   });
 
   myAppModule.controller("loginCtrl", function($scope, $http, $routeParams, $route, $location, loginService) {
-    $scope.submit = function(e) {
+    return $scope.submit = function(e) {
       if ($scope.user.username && $scope.user.password) {
-        debugger;
-        loginService.login($scope.user.username, $scope.user.password).then((function() {
+        return loginService.login($scope.user.username, $scope.user.password).then((function() {
           $location.path("/");
-          $scope.$emit("loginSuccess");
+          return $scope.$emit("loginSuccess");
         }), function(data) {
-          $scope.user.msg = data.msg;
+          return $scope.user.msg = data.msg;
         });
       } else {
-        $scope.user.msg = "填写不正确";
+        return $scope.user.msg = "填写不正确";
       }
     };
   });
@@ -175,7 +175,7 @@
   myAppModule.controller("fenleiCtrl", function($scope, $http, $filter) {
     $scope.fenleiNow = 1;
     $http.get("api/fenlei").success(function(data) {
-      var company, i, item, j;
+      var company, i, item, j, _results;
       $scope.fenlei = data;
       $scope.fenleiList = [];
       for (i in data) {
@@ -187,20 +187,27 @@
         $scope.fenleiList.push(item);
       }
       $scope.company = [];
+      _results = [];
       for (i in $scope.fenlei) {
         item = $scope.fenlei[i];
-        for (j in item.id_list) {
-          company = {};
-          company.id = item.id_list[j];
-          company.title = item.title_list[j];
-          company.title_pinyin = item.title_list_pinyin[j];
-          $scope.company.push(company);
-        }
+        _results.push((function() {
+          var _results1;
+          _results1 = [];
+          for (j in item.id_list) {
+            company = {};
+            company.id = item.id_list[j];
+            company.title = item.title_list[j];
+            company.title_pinyin = item.title_list_pinyin[j];
+            _results1.push($scope.company.push(company));
+          }
+          return _results1;
+        })());
       }
+      return _results;
     });
     $scope.clickFenlei = function(index) {
       $scope.showFenlei = !$scope.showFenlei;
-      $scope.companyShow = $scope.fenlei[$scope.fenleiList[index].name];
+      return $scope.companyShow = $scope.fenlei[$scope.fenleiList[index].name];
     };
     $scope.searchCompany = function() {
       var i, item, re;
@@ -217,8 +224,8 @@
         $scope.companyShow.title_list_pinyin.push(item.title_pinyin);
       }
     };
-    $scope.clickCompany = function(index) {
-      $scope.nowCompany = $scope.companyShow.id_list[index];
+    return $scope.clickCompany = function(index) {
+      return $scope.nowCompany = $scope.companyShow.id_list[index];
     };
   });
 
@@ -274,16 +281,16 @@
       }
       $scope.contentHtml = "加载中...";
       $scope.contentUrl = $scope.nav[index].url.replace(".", $scope.nowCompany);
-      $http({
+      return $http({
         method: "GET",
         url: "/api/content/" + $scope.contentUrl
       }).success(function(data, status, headers, config) {
-        $scope.contentHtml = data;
-      }).error(function(data, status, headers, config) {});
+        return $scope.contentHtml = data;
+      });
     };
-    $scope.$watch("nowCompany", function() {
+    return $scope.$watch("nowCompany", function() {
       $scope.clickNav();
-      console.log(" change now company");
+      return console.log(" change now company");
     });
   });
 
@@ -295,10 +302,10 @@
       method: "GET",
       url: "/api/tags"
     }).success(function(data) {
-      drawTag(data);
+      return drawTag(data);
     });
     $scope.child = {};
-    drawTag = function(list) {
+    return drawTag = function(list) {
       var canvas, options;
       canvas = $(".tag-cloudy:last")[0];
       options = {
@@ -318,13 +325,13 @@
         },
         hover: function(item, dimension, event) {
           if (item) {
-            $(".tag-cloudy").css("cursor", "pointer");
+            return $(".tag-cloudy").css("cursor", "pointer");
           } else {
-            $(".tag-cloudy").css("cursor", "default");
+            return $(".tag-cloudy").css("cursor", "default");
           }
         }
       };
-      WordCloud(canvas, options);
+      return WordCloud(canvas, options);
     };
   });
 
@@ -353,31 +360,29 @@
     }).otherwise({
       redirectTo: "/404"
     });
-    $locationProvider.html5Mode(true);
+    return $locationProvider.html5Mode(true);
   });
 
   $(function() {
-    var showScroll;
-    showScroll = function() {
+    return (function() {
       $(window).scroll(function() {
         var scrollValue;
         scrollValue = $(window).scrollTop();
         if (scrollValue > 100) {
-          $("div[class=scroll]").fadeIn();
+          return $("div[class=scroll]").fadeIn();
         } else {
-          $("div[class=scroll]").fadeOut();
+          return $("div[class=scroll]").fadeOut();
         }
       });
-      $("#scroll").click(function() {
-        $("html,body").animate({
+      return $("#scroll").click(function() {
+        return $("html,body").animate({
           scrollTop: 0
         }, 200);
       });
-    };
-    showScroll();
+    })();
   });
 
-  myAppModule.controller("articleNavCtrl", function($scope, $http, $routeParams, $route, $location, loginService) {});
+  myAppModule.controller("articleNavCtrl", function($scope) {});
 
 }).call(this);
 
