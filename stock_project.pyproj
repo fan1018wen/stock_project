@@ -31,7 +31,6 @@
       <Publish>True</Publish>
     </Compile>
     <Compile Include="web\route.py" />
-    <Content Include="web2\Gruntfile.js" />
     <Compile Include="crawler\scrapy_sina\items.py" />
     <Compile Include="crawler\scrapy_sina\main.py" />
     <Compile Include="crawler\scrapy_sina\middlewares.py" />
@@ -100,12 +99,6 @@
     <Content Include="web\static\styles\bootstrap.css" />
     <Content Include="web\static\styles\bootstrap.min.css" />
     <Content Include="web\static\styles\main.css" />
-    <Content Include="web2\app\robots.txt" />
-    <Content Include="web2\app\404.html" />
-    <Content Include="web2\app\index.html" />
-    <Content Include="web2\app\favicon.ico" />
-    <Content Include="web2\app\scripts\main.js" />
-    <Content Include="web2\app\styles\main.css" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="analyst" />
@@ -125,10 +118,6 @@
     <Folder Include="web\static\fonts" />
     <Folder Include="web\static\scripts" />
     <Folder Include="web\static\styles" />
-    <Folder Include="web2" />
-    <Folder Include="web2\app" />
-    <Folder Include="web2\app\scripts" />
-    <Folder Include="web2\app\styles" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
 </Project>
