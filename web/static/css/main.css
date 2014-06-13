@@ -258,3 +258,13 @@ body {
 	margin-left: auto;
 	margin-right: auto;
 }
+
+
+
+#login-form {
+        width: 450px;
+        margin: 15px auto;
+        padding: 20px;
+        text-align: left;
+        border: 1px solid #A4CDF2;
+    }

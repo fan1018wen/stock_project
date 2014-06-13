@@ -164,6 +164,184 @@ myAppModule.controller "registerCtrl", ($scope, $http, $routeParams, $route, $lo
     else $scope.user.msg="请填写完整"
 
 
+myAppModule.controller "fenleiCtrl", ($scope, $http, $filter) ->
+  $scope.fenleiNow = 1
+  $http.get("api/fenlei").success (data) ->
+    $scope.fenlei = data
+    $scope.fenleiList = []
+    for i of data
+      item =
+        name: i
+        count: data[i].id_list.length
+        namePinYin: data[i].fenlei_pinyin
+
+      $scope.fenleiList.push item
+    $scope.company = []
+    for i of $scope.fenlei
+      item = $scope.fenlei[i]
+      for j of item.id_list
+        company = {}
+        company.id = item.id_list[j]
+        company.title = item.title_list[j]
+        company.title_pinyin = item.title_list_pinyin[j]
+        $scope.company.push company
+    return
+
+  $scope.clickFenlei = (index) ->
+    $scope.showFenlei = not $scope.showFenlei
+    $scope.companyShow = $scope.fenlei[$scope.fenleiList[index].name]
+    return
+
+  $scope.searchCompany = ->
+    $scope.companyShow =
+      id_list: []
+      title_list: []
+      title_list_pinyin: []
+
+    re = searchCompany($scope.company, $scope.CompanySearch)
+    for i of re
+      item = re[i]
+      $scope.companyShow.id_list.push item.id
+      $scope.companyShow.title_list.push item.title
+      $scope.companyShow.title_list_pinyin.push item.title_pinyin
+    return
+
+  
+  #     debugger;
+  $scope.clickCompany = (index) ->
+    
+    #     debugger;
+    $scope.nowCompany = $scope.companyShow.id_list[index]
+    return
+
+  return
+
+myAppModule.controller "companyCtrl" , ($scope, $http) ->
+  $scope.nav = [
+    {
+      title: "最新动态"
+      url: "./"
+    }
+    {
+      title: "公司资料"
+      url: "./company.html"
+    }
+    {
+      title: "股东研究"
+      url: "./holder.html"
+    }
+    {
+      title: "经营分析"
+      url: "./operate.html"
+    }
+    {
+      title: "股本结构"
+      url: "./equity.html"
+    }
+    {
+      title: "资本运作"
+      url: "./capital.html"
+    }
+    {
+      title: "盈利预测"
+      url: "./worth.html"
+    }
+    {
+      title: "新闻公告"
+      url: "./news.html"
+    }
+    {
+      title: "财务概况"
+      url: "./finance.html"
+    }
+    {
+      title: "主力持仓"
+      url: "./position.html"
+    }
+    {
+      title: "深度研究"
+      url: "./research.html"
+    }
+    {
+      title: "分红融资"
+      url: "./bonus.html"
+    }
+    {
+      title: "公司大事"
+      url: "./event.html"
+    }
+    {
+      title: "行业对比"
+      url: "./field.html"
+    }
+  ]
+  
+  #   $scope.nowCompany = "000576";
+  $scope.clickNav = (index) ->
+    unless index? then return
+    $scope.contentHtml = "加载中..."
+    $scope.contentUrl = $scope.nav[index].url.replace(".", $scope.nowCompany)
+    $http(
+      method: "GET"
+      url: "/api/content/" + $scope.contentUrl
+    ).success((data, status, headers, config) ->
+      $scope.contentHtml = data
+      return
+    ).error (data, status, headers, config) ->
+
+    return
+
+  $scope.$watch "nowCompany", ->
+    $scope.clickNav()
+    console.log " change now company"
+    return
+
+  return
+
+
+myAppModule.controller "canvasCtrl", ($scope, $http, $route) ->
+  
+  #var list = [["紅樓夢", 6], ["賈寶玉", 3], ["林黛玉", 3], ["薛寶釵", 3], ["王熙鳳", 3], ["李紈", 3], ["賈元春", 3], ["賈迎春", 3], ["賈探春", 3], ["賈惜春", 3], ["秦可卿", 3], ["賈巧姐", 3], ["史湘雲", 3], ["妙玉", 3], ["賈政", 2], ["賈赦", 2], ["賈璉", 2], ["賈珍", 2], ["賈環", 2], ["賈母", 2], ["王夫人", 2], ["薛姨媽", 2], ["尤氏", 2], ["平兒", 2], ["鴛鴦", 2], ["襲人", 2], ["晴雯", 2], ["香菱", 2], ["紫鵑", 2], ["麝月", 2], ["小紅", 2], ["金釧", 2], ["甄士隱", 2], ["賈雨村", 2]];
+  $scope.keyword = ""
+  $scope.yaowenNoShowNav = 1
+  $http(
+    method: "GET"
+    url: "/api/tags"
+  ).success (data) ->
+    drawTag data
+    return
+
+  $scope.child = {} #传替到子控制器
+  drawTag = (list) ->
+    
+    #         debugger;
+    canvas = $(".tag-cloudy:last")[0]
+    options =
+      gridSize: 50
+      weightFactor: 16
+      fontFamily: "Hiragino Mincho Pro, serif"
+      color: "random-dark"
+      backgroundColor: "#f0f0f0"
+      rotateRatio: 0
+      list: list
+      shape: "circle "
+      click: (item, dimension, event) ->
+        $scope.$apply ->
+          $scope.keyword = item[0]
+        $scope.child.changeTag()
+
+      hover: (item, dimension, event) ->
+        if item
+          $(".tag-cloudy").css "cursor", "pointer"
+        else
+          $(".tag-cloudy").css "cursor", "default"
+        return
+
+    WordCloud canvas, options
+    return
+
+  return
+
 myAppModule.config ($routeProvider, $locationProvider) ->
   $routeProvider.when("/yaowen",
     controller: "articleListCtrl"

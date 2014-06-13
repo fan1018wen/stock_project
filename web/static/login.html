@@ -33,30 +33,3 @@
 		
 	</div>
 </div>
-
-<div ng-controller="reloadCtrl"></div>
-<script type="text/javascript" charset="utf-8">
-	
-
-	function reloadCtrl($http, $route) {
-		var oldHtml = '';
-		var reload = function(url) {
-			$http.get(url).success(function(newHtml) {
-				if (oldHtml.length > 0 && newHtml != oldHtml) {
-					clearInterval(id);
-					$route.reload();
-				} else {
-					oldHtml = newHtml;
-					//					console.log('watch')
-				}
-			});
-		};
-		var reloadList = function() {
-			reload('/static/login.html');
-
-		}
-//		var id = setInterval(reloadList, 300);
-	}
-
-</script>
-
