@@ -1,5 +1,60 @@
 var myAppModule = angular.module('myApp', ['ngSanitize', 'ngAnimate', 'ngRoute', 'infinite-scroll']);
 
+myAppModule.service('loginService', function($http, $q) {
+	/*loginService
+	 * isLogin 返回 是否成功登录
+	 * username 返回 登录的用户名
+	 * logou 退出登录
+	 */
+	_username = ""
+
+	this.isLogin = function() {
+		var delay = $q.defer();
+		if ( typeof _isLogin !== "undefined") {
+			delay.resolve(_isLogin);
+		}
+		$http.get('/api/isLogin').success(function(data) {
+			if (data.isLogin) {
+				_isLogin = true;
+				_username = data.username;
+
+			} else {
+				_isLogin = false
+			}
+			delay.resolve(_isLogin);
+		})
+		return delay.promise;
+	}
+	this.username = function() {
+		return _username
+	}
+
+	this.logout = function() {
+		var delay = $q.defer();
+		$http.get("/api/logout").success(function() {
+			_isLogin = false
+			delay.resolve(_isLogin);
+		})
+		return delay.promise;
+	}
+	this.login = function(username, password) {
+		var delay = $q.defer();
+		$http.post("/api/login", {
+			username : username,
+			password : password
+		}).success(function(data) {
+			if (data.success) {
+				_isLogin = true
+				_username = username
+				delay.resolve(data)
+			} else {
+				delay.reject(data)
+			}
+		});
+		return delay.promise
+	}
+})
+
 myAppModule.controller('articleListCtrl', function($scope, $http, $location) {
 
 	window.articleScope = $scope;
@@ -57,48 +112,45 @@ myAppModule.controller('articleListCtrl', function($scope, $http, $location) {
 
 });
 
-myAppModule.controller('mainCtrl', function($scope, $http, $route) {
-	$scope.main = {};
-	//共享到自控制器
+myAppModule.controller('mainCtrl', function($scope, $http, $route, loginService) {
+	var login = function() {
+		loginService.isLogin().then(function(e) {
+			$scope.isLogin = e;
+			$scope.username = loginService.username()
+		})
+	}
+	login();
+
 	$scope.bodyKeyDown = function(event) {
 		if (event.keyCode == 82) {
 			$route.reload();
 		}
 	}
-	$http.get('/api/isLogin').success(function(data){
-		if(data.isLogin){
-			$scope.main.isLogin=true;
-			$scope.main.username=data.username;
-		}
-		
-	})
-	$scope.logout = function(){
-		$http.get("/api/logout")
-		.success(function(){
-			$scope.main.isLogin=false;
-			$scope.main.username="";
+	$scope.logout = function() {
+		loginService.logout().then(function() {
+			$scope.isLogin = false;
 		})
 	}
+	$scope.$on('loginSuccess', function() {
+		login();
+	})
 });
 
-myAppModule.controller('loginCtrl', function($scope, $http, $routeParams, $route, $location) {
-
-	var login = function(data) {
-		$scope.user.msg = data.msg;
-		if (data.success) {
-			$scope.main.isLogin = true;
-			$scope.main.username = $scope.user.username;
-			$location.path("/")
-		}
-	}
+myAppModule.controller('loginCtrl', function($scope, $http, $routeParams, $route, $location, loginService) {
 
 	$scope.submit = function(e) {
-		if($scope.user.username && $scope.user.password){
-			$http.post("/api/login", $scope.user).success(login);	
-		}else{
-			$scope.user.msg="填写不正确"
+		if ($scope.user.username && $scope.user.password) {
+			debugger
+			loginService.login($scope.user.username, $scope.user.password).then(function() {
+				$location.path('/')
+				$scope.$emit('loginSuccess');
+			}, function(data) {
+				$scope.user.msg = data.msg
+			})
+		} else {
+			$scope.user.msg = "填写不正确"
 		}
-		
+
 	}
 });
 
@@ -148,9 +200,6 @@ $(function() {
 	}
 
 })
-
-
-
-var articleNavCtrl=function($scope){
+var articleNavCtrl = function($scope) {
 
 }
