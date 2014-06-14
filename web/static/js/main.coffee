@@ -300,6 +300,5 @@ myAppModule.controller "registerCtrl",registerCtrl
 myAppModule.controller "fenleiCtrl",fenleiCtrl
 myAppModule.controller "companyCtrl" ,companyCtrl
 myAppModule.controller "articleNavCtrl",articleNavCtrl
+
 myAppModule.directive "modifyatarget",modifyatarget
-
-
