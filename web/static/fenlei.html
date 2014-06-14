@@ -23,9 +23,8 @@
 	<div class="company row thumbnail ">
 		<span ng-repeat='i in companyShow.id_list' ng-click="clickCompany($index)">{{i}} {{companyShow.title_list[$index]}}</span>
 	</div>
-	<div class="row">
-		{{nowCompany}}
-	</div>
+	<h3>{{nowCompany}} {{nowCompanyName}}</h3>
+
 	<div class="row" ng-show="nowCompany">
 		<ng-include src=" '/static/company.html' "></ng-include>	
 	</div>

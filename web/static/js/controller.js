@@ -1,8 +1,7 @@
 (function() {
-  var articleListCtrl, articleNavCtrl, companyCtrl, fenleiCtrl, loginCtrl, mainCtrl, registerCtrl;
+  var articleListCtrl, articleNavCtrl, canvasCtrl, companyCtrl, fenleiCtrl, loginCtrl, mainCtrl, registerCtrl;
 
   articleListCtrl = function($scope, $http, $location) {
-    window.articleScope = $scope;
     $scope.articleList = [];
     $scope.toggle = function(index, event) {
       var article;
@@ -117,6 +116,7 @@
   };
 
   fenleiCtrl = function($scope, $http, $filter) {
+    var searchCompany;
     $scope.fenleiNow = 1;
     $http.get("api/fenlei").success(function(data) {
       var company, i, item, j, _results;
@@ -168,28 +168,99 @@
         $scope.companyShow.title_list_pinyin.push(item.title_pinyin);
       }
     };
-    return $scope.clickCompany = function(index) {
-      return $scope.nowCompany = $scope.companyShow.id_list[index];
+    $scope.clickCompany = function(index) {
+      $scope.nowCompany = $scope.companyShow.id_list[index];
+      $scope.nowCompanyName = $scope.companyShow.title_list[index];
+      return $scope.$broadcast('changeCompany', $scope.nowCompany);
+    };
+    return searchCompany = function(company, keyword) {
+      var ans, enque, isAdd, searchId, searchName, searchPinYin;
+      ans = [];
+      isAdd = {};
+      enque = function(ans) {
+        var id, item, re, _i, _len;
+        isAdd = {};
+        re = [];
+        for (_i = 0, _len = ans.length; _i < _len; _i++) {
+          item = ans[_i];
+          id = item.id;
+          if (!isAdd[id]) {
+            re.push(item);
+            isAdd[id] = 1;
+          }
+        }
+        if (re.length > 50) {
+          return re = re.slice(0, 50);
+        } else {
+          return re;
+        }
+      };
+      searchId = function() {
+        var id, item, _i, _len;
+        for (_i = 0, _len = company.length; _i < _len; _i++) {
+          item = company[_i];
+          id = item.id;
+          if (id.toString().indexOf(keyword) !== -1) {
+            ans.push(item);
+          }
+        }
+        return enque(ans);
+      };
+      searchName = function() {
+        var item, name, _i, _len;
+        for (_i = 0, _len = company.length; _i < _len; _i++) {
+          item = company[_i];
+          name = item.title;
+          if (name.toString().indexOf(keyword) !== -1) {
+            ans.push(item);
+          }
+        }
+        return enque(ans);
+      };
+      searchPinYin = function() {
+        var item, py, _i, _len;
+        for (_i = 0, _len = company.length; _i < _len; _i++) {
+          item = company[_i];
+          py = item.title_pinyin;
+          if (py.toString().indexOf(keyword) !== -1) {
+            ans.push(item);
+          }
+        }
+        return enque(ans);
+      };
+      if (isNaN(parseInt(keyword))) {
+        if (/^[a-z]+$/.test(keyword)) {
+          return searchPinYin();
+        }
+        return searchName();
+      }
+      return searchId();
     };
   };
 
   companyCtrl = function($scope, $http) {
     var getCompanyData;
-    $scope.nowCompany = 603002;
+    $scope.nowCompany = 0;
     $scope.nav = ["最新指标", "财务透视", "主营构成", "行业新闻", "大事提醒", "八面来风", "公司概况", "管理层　", "季度财务", "大股东　", "股本分红", "资本运作", "行业地位", "公司公告", "回顾展望", "盈利预测"];
     $scope.clickNav = function(index) {
       return $scope.tabNow = index + 1;
     };
     getCompanyData = function() {
+      if ($scope.nowCompany === 0) {
+        return;
+      }
       return $http.get('/api/f10/' + $scope.nowCompany).success(function(data) {
-        return $scope.companyData = data;
+        $scope.companyData = data;
+        return $scope.companyShow = !data ? false : true;
       });
     };
-    getCompanyData();
-    return $scope.$watch("nowCompany", getCompanyData);
+    return $scope.$on("changeCompany", function(event, nowCompany) {
+      $scope.nowCompany = nowCompany;
+      return getCompanyData();
+    });
   };
 
-  myAppModule.controller("canvasCtrl", function($scope, $http, $route) {
+  canvasCtrl = function($scope, $http, $route) {
     var drawTag;
     $scope.keyword = "";
     $scope.yaowenNoShowNav = 1;
@@ -228,35 +299,7 @@
       };
       return WordCloud(canvas, options);
     };
-  });
-
-  myAppModule.config(function($routeProvider, $locationProvider) {
-    $routeProvider.when("/yaowen", {
-      controller: "articleListCtrl",
-      templateUrl: "/static/yaowen.html"
-    }).when("/", {
-      redirectTo: "/static/yaowen.html"
-    }).when("/dashi", {
-      templateUrl: "/static/dashi.html"
-    }).when("/zhuti", {
-      templateUrl: "/static/zhuti.html"
-    }).when("/gegu", {
-      templateUrl: "/static/gegu.html"
-    }).when("/fenlei", {
-      templateUrl: "/static/fenlei.html"
-    }).when("/404", {
-      templateUrl: "/static/404.html"
-    }).when("/login", {
-      templateUrl: "/static/login.html"
-    }).when("/register", {
-      templateUrl: "/static/register.html"
-    }).when("/company", {
-      templateUrl: "/static/company.html"
-    }).otherwise({
-      redirectTo: "/404"
-    });
-    return $locationProvider.html5Mode(true);
-  });
+  };
 
   articleNavCtrl = function($scope) {};
 
@@ -273,6 +316,8 @@
   myAppModule.controller("companyCtrl", companyCtrl);
 
   myAppModule.controller("articleNavCtrl", articleNavCtrl);
+
+  myAppModule.controller("canvasCtrl", canvasCtrl);
 
 }).call(this);
 

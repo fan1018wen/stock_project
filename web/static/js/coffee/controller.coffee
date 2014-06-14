@@ -1,6 +1,5 @@
 
 articleListCtrl = ($scope, $http, $location) ->
-  window.articleScope = $scope
   $scope.articleList = []
   $scope.toggle = (index, event) ->
     event.target.parentElement.parentElement.childNodes[1].scrollIntoViewIfNeeded()  unless typeof event is "undefined"
@@ -124,10 +123,50 @@ fenleiCtrl = ($scope, $http, $filter) ->
 
   $scope.clickCompany = (index) ->
     $scope.nowCompany = $scope.companyShow.id_list[index]
-
+    $scope.nowCompanyName = $scope.companyShow.title_list[index]
+    $scope.$broadcast 'changeCompany', $scope.nowCompany
+    
+  searchCompany = (company,keyword)->
+    ans = []
+    isAdd = {}
+    enque = (ans)->
+        isAdd = {}
+        re = []
+        for item in ans
+            id = item.id
+            unless isAdd[id]
+                re.push item
+                isAdd[id] = 1
+        if re.length>50 then re=re[0...50] else re
+    searchId = ->
+        #if parseInt(keyword)<100 then return
+        for item in company
+            id = item.id
+            if id.toString().indexOf(keyword)!=-1 
+                ans.push(item)
+        enque ans
+    searchName = ->
+        for item in company
+            name=item.title
+            if name.toString().indexOf(keyword)!=-1 
+                ans.push(item)
+        enque ans
+    
+    searchPinYin = ->
+        for item in company
+            py=item.title_pinyin
+            if py.toString().indexOf(keyword)!=-1 
+                ans.push(item)
+        enque ans
+        
+    if isNaN parseInt keyword
+       if /^[a-z]+$/.test keyword
+            return searchPinYin()
+        return searchName()
+    return searchId()
 
 companyCtrl = ($scope, $http) ->
-  $scope.nowCompany = 603002
+  $scope.nowCompany = 0
   $scope.nav =[
     "最新指标"
     "财务透视"
@@ -149,11 +188,18 @@ companyCtrl = ($scope, $http) ->
     $scope.tabNow=index+1
 
   getCompanyData =  ->
+    if $scope.nowCompany == 0 then return  
     $http.get('/api/f10/'+$scope.nowCompany).success (data)->
       $scope.companyData = data
-  do getCompanyData
-  $scope.$watch "nowCompany",getCompanyData
-myAppModule.controller "canvasCtrl", ($scope, $http, $route) ->
+      $scope.companyShow = if not data then false else true
+
+  # do getCompanyData
+  $scope.$on "changeCompany", (event,nowCompany)->
+    $scope.nowCompany = nowCompany
+    getCompanyData()
+
+
+canvasCtrl = ($scope, $http, $route) ->
   $scope.keyword = ""
   $scope.yaowenNoShowNav = 1
   $http(
@@ -187,30 +233,7 @@ myAppModule.controller "canvasCtrl", ($scope, $http, $route) ->
 
     WordCloud canvas, options
 
-myAppModule.config ($routeProvider, $locationProvider) ->
-  $routeProvider.when("/yaowen",
-    controller: "articleListCtrl"
-    templateUrl: "/static/yaowen.html"
-  ).when("/",
-    redirectTo: "/static/yaowen.html"
-  ).when("/dashi",
-    templateUrl: "/static/dashi.html"
-  ).when("/zhuti",
-    templateUrl: "/static/zhuti.html"
-  ).when("/gegu",
-    templateUrl: "/static/gegu.html"
-  ).when("/fenlei",
-    templateUrl: "/static/fenlei.html"
-  ).when("/404",
-    templateUrl: "/static/404.html"
-  ).when("/login",
-    templateUrl: "/static/login.html"
-  ).when("/register",
-    templateUrl: "/static/register.html"
-  ).when("/company",
-    templateUrl: "/static/company.html"
-  ).otherwise redirectTo: "/404"
-  $locationProvider.html5Mode true
+
 
 
 
@@ -225,4 +248,4 @@ myAppModule.controller "registerCtrl",registerCtrl
 myAppModule.controller "fenleiCtrl",fenleiCtrl
 myAppModule.controller "companyCtrl" ,companyCtrl
 myAppModule.controller "articleNavCtrl",articleNavCtrl
-
+myAppModule.controller "canvasCtrl",canvasCtrl
