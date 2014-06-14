@@ -3,7 +3,7 @@
 	// The mappings of source directory and output directory
 	"mappings": [
 		{	
-			"src": "coffee/",
+			"src": "js/coffee/",
 			"dest": "js/"
 		}
 	],
