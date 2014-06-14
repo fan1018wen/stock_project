@@ -1,7 +1,5 @@
 (function() {
-  var myAppModule;
-
-  myAppModule = angular.module("myApp", ["ngSanitize", "ngAnimate", "ngRoute", "infinite-scroll"]);
+  window.myAppModule = angular.module("myApp", ["ngSanitize", "ngAnimate", "ngRoute", "infinite-scroll"]);
 
   myAppModule.service("loginService", function($http, $q) {
     var _username;
@@ -334,6 +332,20 @@
   });
 
   myAppModule.controller("articleNavCtrl", function($scope) {});
+
+  myAppModule.directive("modifyatarget", function() {
+    return {
+      restrict: "EA",
+      replace: true,
+      priority: 1,
+      link: function(scope, element, attrs) {
+        element.find("a").attr("target", "_blank");
+        return scope.$watch(element.attr("ng-bind-html"), function() {
+          return element.find("a").attr("target", "_blank");
+        });
+      }
+    };
+  });
 
 }).call(this);
 
