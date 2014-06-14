@@ -1,7 +1,9 @@
 (function() {
+  var articleListCtrl, articleNavCtrl, companyCtrl, fenleiCtrl, loginCtrl, loginService, mainCtrl, modifyatarget, registerCtrl;
+
   window.myAppModule = angular.module("myApp", ["ngSanitize", "ngAnimate", "ngRoute", "infinite-scroll"]);
 
-  myAppModule.service("loginService", function($http, $q) {
+  loginService = function($http, $q) {
     var _username;
     _username = "";
     this.isLogin = function() {
@@ -53,9 +55,9 @@
       });
       return delay.promise;
     };
-  });
+  };
 
-  myAppModule.controller("articleListCtrl", function($scope, $http, $location) {
+  articleListCtrl = function($scope, $http, $location) {
     window.articleScope = $scope;
     $scope.articleList = [];
     $scope.toggle = function(index, event) {
@@ -111,9 +113,9 @@
         return $scope.loadMore();
       };
     }
-  });
+  };
 
-  myAppModule.controller("mainCtrl", function($scope, $http, $route, loginService) {
+  mainCtrl = function($scope, $http, $route, loginService) {
     var login;
     login = function() {
       return loginService.isLogin().then(function(e) {
@@ -135,9 +137,9 @@
     return $scope.$on("loginSuccess", function() {
       return login();
     });
-  });
+  };
 
-  myAppModule.controller("loginCtrl", function($scope, $http, $routeParams, $route, $location, loginService) {
+  loginCtrl = function($scope, $http, $routeParams, $route, $location, loginService) {
     return $scope.submit = function(e) {
       if ($scope.user.username && $scope.user.password) {
         return loginService.login($scope.user.username, $scope.user.password).then((function() {
@@ -150,9 +152,9 @@
         return $scope.user.msg = "填写不正确";
       }
     };
-  });
+  };
 
-  myAppModule.controller("registerCtrl", function($scope, $http, $routeParams, $route, $location, loginService) {
+  registerCtrl = function($scope, $http, $routeParams, $route, $location, loginService) {
     return $scope.submit = function(e) {
       debugger;
       if ($scope.user.username && $scope.user.password && $scope.user.password2) {
@@ -168,9 +170,9 @@
         return $scope.user.msg = "请填写完整";
       }
     };
-  });
+  };
 
-  myAppModule.controller("fenleiCtrl", function($scope, $http, $filter) {
+  fenleiCtrl = function($scope, $http, $filter) {
     $scope.fenleiNow = 1;
     $http.get("api/fenlei").success(function(data) {
       var company, i, item, j, _results;
@@ -225,9 +227,9 @@
     return $scope.clickCompany = function(index) {
       return $scope.nowCompany = $scope.companyShow.id_list[index];
     };
-  });
+  };
 
-  myAppModule.controller("companyCtrl", function($scope, $http) {
+  companyCtrl = function($scope, $http) {
     var getCompanyData;
     $scope.nowCompany = 603002;
     $scope.nav = ["最新指标", "财务透视", "主营构成", "行业新闻", "大事提醒", "八面来风", "公司概况", "管理层　", "季度财务", "大股东　", "股本分红", "资本运作", "行业地位", "公司公告", "回顾展望", "盈利预测"];
@@ -241,7 +243,7 @@
     };
     getCompanyData();
     return $scope.$watch("nowCompany", getCompanyData);
-  });
+  };
 
   myAppModule.controller("canvasCtrl", function($scope, $http, $route) {
     var drawTag;
@@ -331,9 +333,9 @@
     })();
   });
 
-  myAppModule.controller("articleNavCtrl", function($scope) {});
+  articleNavCtrl = function($scope) {};
 
-  myAppModule.directive("modifyatarget", function() {
+  modifyatarget = function() {
     return {
       restrict: "EA",
       replace: true,
@@ -345,7 +347,25 @@
         });
       }
     };
-  });
+  };
+
+  myAppModule.service("loginService", loginService);
+
+  myAppModule.controller("articleListCtrl", articleListCtrl);
+
+  myAppModule.controller("mainCtrl", mainCtrl);
+
+  myAppModule.controller("loginCtrl", loginCtrl);
+
+  myAppModule.controller("registerCtrl", registerCtrl);
+
+  myAppModule.controller("fenleiCtrl", fenleiCtrl);
+
+  myAppModule.controller("companyCtrl", companyCtrl);
+
+  myAppModule.controller("articleNavCtrl", articleNavCtrl);
+
+  myAppModule.directive("modifyatarget", modifyatarget);
 
 }).call(this);
 

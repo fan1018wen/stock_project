@@ -5,7 +5,7 @@ window.myAppModule = angular.module("myApp", [
   "infinite-scroll"
 ])
 
-myAppModule.service "loginService", ($http, $q) ->
+loginService = ($http, $q) ->
   #loginService
   #  * isLogin 返回 是否成功登录
   #  * username 返回 登录的用户名
@@ -48,7 +48,8 @@ myAppModule.service "loginService", ($http, $q) ->
     delay.promise
   return
   
-myAppModule.controller "articleListCtrl", ($scope, $http, $location) ->
+
+articleListCtrl = ($scope, $http, $location) ->
   window.articleScope = $scope
   $scope.articleList = []
   $scope.toggle = (index, event) ->
@@ -89,7 +90,7 @@ myAppModule.controller "articleListCtrl", ($scope, $http, $location) ->
       $scope.articleList = []
       $scope.loadMore()
 
-myAppModule.controller "mainCtrl", ($scope, $http, $route, loginService) ->
+mainCtrl = ($scope, $http, $route, loginService) ->
   login = ->
     loginService.isLogin().then (e) ->
       $scope.isLogin = e
@@ -106,7 +107,7 @@ myAppModule.controller "mainCtrl", ($scope, $http, $route, loginService) ->
     login()
 
 
-myAppModule.controller "loginCtrl", ($scope, $http, $routeParams, $route, $location, loginService) ->
+loginCtrl = ($scope, $http, $routeParams, $route, $location, loginService) ->
   $scope.submit = (e) ->
     if $scope.user.username and $scope.user.password
       loginService.login($scope.user.username, $scope.user.password).then (->
@@ -117,7 +118,7 @@ myAppModule.controller "loginCtrl", ($scope, $http, $routeParams, $route, $locat
     else
       $scope.user.msg = "填写不正确"
 
-myAppModule.controller "registerCtrl", ($scope, $http, $routeParams, $route, $location, loginService) ->
+registerCtrl = ($scope, $http, $routeParams, $route, $location, loginService) ->
   $scope.submit = (e)->
     debugger
     if $scope.user.username and $scope.user.password and $scope.user.password2
@@ -131,7 +132,7 @@ myAppModule.controller "registerCtrl", ($scope, $http, $routeParams, $route, $lo
     else $scope.user.msg="请填写完整"
 
 
-myAppModule.controller "fenleiCtrl", ($scope, $http, $filter) ->
+fenleiCtrl = ($scope, $http, $filter) ->
   $scope.fenleiNow = 1
   $http.get("api/fenlei").success (data) ->
     $scope.fenlei = data
@@ -175,7 +176,7 @@ myAppModule.controller "fenleiCtrl", ($scope, $http, $filter) ->
     $scope.nowCompany = $scope.companyShow.id_list[index]
 
 
-myAppModule.controller "companyCtrl" , ($scope, $http) ->
+companyCtrl = ($scope, $http) ->
   $scope.nowCompany = 603002
   $scope.nav =[
     "最新指标"
@@ -275,12 +276,12 @@ $ ->
       , 200
 
 
-myAppModule.controller "articleNavCtrl", ($scope) ->
+articleNavCtrl = ($scope) ->
 
 
 
 # 把 ng-bind-html 中的html的链接的 target属性改为 _blank
-myAppModule.directive "modifyatarget", ->
+modifyatarget = ->
   restrict: "EA"
   replace: true
   priority:1
@@ -288,3 +289,17 @@ myAppModule.directive "modifyatarget", ->
     element.find("a").attr("target","_blank")
     scope.$watch element.attr("ng-bind-html"),->
       element.find("a").attr("target","_blank")
+
+
+
+myAppModule.service "loginService",loginService
+myAppModule.controller "articleListCtrl", articleListCtrl
+myAppModule.controller "mainCtrl",mainCtrl
+myAppModule.controller "loginCtrl",loginCtrl
+myAppModule.controller "registerCtrl",registerCtrl
+myAppModule.controller "fenleiCtrl",fenleiCtrl
+myAppModule.controller "companyCtrl" ,companyCtrl
+myAppModule.controller "articleNavCtrl",articleNavCtrl
+myAppModule.directive "modifyatarget",modifyatarget
+
+
