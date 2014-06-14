@@ -112,5 +112,3 @@ docs/_build/
 /test
 /web/test
 /web/static/js/*.map
-/web/static/js/1055.json
-/web/static/js
