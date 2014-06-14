@@ -1,53 +1,3 @@
-window.myAppModule = angular.module("myApp", [
-  "ngSanitize"
-  "ngAnimate"
-  "ngRoute"
-  "infinite-scroll"
-])
-
-loginService = ($http, $q) ->
-  #loginService
-  #  * isLogin 返回 是否成功登录
-  #  * username 返回 登录的用户名
-  #  * logou 退出登录
-  #  
-  _username = ""
-  @isLogin = ->
-    delay = $q.defer()
-    delay.resolve _isLogin  if _isLogin?
-    $http.get("/api/isLogin").success (data) ->
-      if data.isLogin
-        _isLogin = true
-        _username = data.username
-      else
-        _isLogin = false
-      delay.resolve _isLogin
-    delay.promise
-
-  @username = -> _username
-
-  @logout = ->
-    delay = $q.defer()
-    $http.get("/api/logout").success ->
-      _isLogin = false
-      delay.resolve _isLogin
-    delay.promise
-
-  @login = (username, password) ->
-    delay = $q.defer()
-    $http.post("/api/login",
-      username: username
-      password: password
-    ).success (data) ->
-      if data.success
-        _isLogin = true
-        _username = username
-        delay.resolve data
-      else
-        delay.reject data
-    delay.promise
-  return
-  
 
 articleListCtrl = ($scope, $http, $location) ->
   window.articleScope = $scope
@@ -263,36 +213,11 @@ myAppModule.config ($routeProvider, $locationProvider) ->
   $locationProvider.html5Mode true
 
 
-#回到顶部
-$ ->
-  do ->
-    $(window).scroll ->
-      scrollValue = $(window).scrollTop()
-      (if scrollValue > 100 then $("div[class=scroll]").fadeIn() else $("div[class=scroll]").fadeOut())
-
-    $("#scroll").click ->
-      $("html,body").animate
-        scrollTop: 0
-      , 200
-
 
 articleNavCtrl = ($scope) ->
 
 
 
-# 把 ng-bind-html 中的html的链接的 target属性改为 _blank
-modifyatarget = ->
-  restrict: "EA"
-  replace: true
-  priority:1
-  link: (scope,element,attrs)->
-    element.find("a").attr("target","_blank")
-    scope.$watch element.attr("ng-bind-html"),->
-      element.find("a").attr("target","_blank")
-
-
-
-myAppModule.service "loginService",loginService
 myAppModule.controller "articleListCtrl", articleListCtrl
 myAppModule.controller "mainCtrl",mainCtrl
 myAppModule.controller "loginCtrl",loginCtrl
@@ -301,4 +226,3 @@ myAppModule.controller "fenleiCtrl",fenleiCtrl
 myAppModule.controller "companyCtrl" ,companyCtrl
 myAppModule.controller "articleNavCtrl",articleNavCtrl
 
-myAppModule.directive "modifyatarget",modifyatarget
